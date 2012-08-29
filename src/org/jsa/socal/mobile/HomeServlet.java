@@ -18,7 +18,6 @@ public class HomeServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		resp.setContentType("text/plain");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp");
 		rd.forward(req, resp);
 	}

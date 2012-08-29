@@ -19,7 +19,7 @@
 	<div data-role="page">
 
 		<div data-role="header" id="header">
-			<h1>SoCal JSA</h1>
+			<h1>Conventions</h1>
 			<div data-role="navbar">
 				<ul data-role="navbar" id="menuList">
 					<li><a href="/home" class="contentLink">Home</a></li>
@@ -31,7 +31,8 @@
 		</div>
 
 		<div data-role="content">
-			<h1>Hello, Welcome to SoCal JSA</h1>
+
+			<h1>Upcoming conventions go here</h1>
 		</div>
 	</div>
 
