@@ -2,31 +2,72 @@ package org.jsa.socal.mobile;
 
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.KeyFactory;
 
 public class Debate {
 	
 	public static final String KIND = "Debate";
 	
-	private static final String PROP_TITLE = "title";
-	private static final String PROP_RESOLUTION = "resolution";
+	public static final String PROP_TITLE = "title";
+	public static final String PROP_RESOLUTION = "resolution";
+	public static final String PROP_CONVENTION_ID = "convention";
 	
 	private Entity data;
+	private long id;
+	private long conventionId;
 	
 	public Debate(Entity data){
 		this.data = data;
+		this.id = data.getKey().getId();
+		this.conventionId = (Long) data.getProperty(PROP_CONVENTION_ID);
 	}
 	
 	public Debate(int id){
-		Query q = new Query(KIND);
-		data = DatastoreServiceFactory.getDatastoreService().prepare(q).asSingleEntity();
+		try {
+			this.data = DatastoreServiceFactory.getDatastoreService().get(KeyFactory.createKey(KIND, id));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.id = data.getKey().getId();
+		this.conventionId = (Long) data.getProperty(PROP_CONVENTION_ID);
 	}
 	
-	public Debate(){
-		data = new Entity(KIND);
+	public Debate(Convention c){
+		this.data = new Entity(KIND);
+		this.id = data.getKey().getId();
+		this.data.setProperty(PROP_CONVENTION_ID, c.getId());
 	}
 	
 	public static class Comment{
+		
+	}
+	
+	public String getTitle(){
+		return (String) data.getProperty(PROP_TITLE);
+	}
+	
+	public String getResolution(){
+		return (String) data.getProperty(PROP_RESOLUTION);
+	}
+	
+	public void setTitle(String value){
+		data.setProperty(PROP_TITLE, PROP_TITLE);
+	}
+	
+	public void setResolution(String value){
+		data.setProperty(PROP_RESOLUTION, value);
+	}
+	
+	public long getId(){
+		return id;
+	}
+	
+	public long getConventionId(){
+		return conventionId;
+	}
+	
+	public void save(){
+		DatastoreServiceFactory.getAsyncDatastoreService().put(data);
 	}
 
 }

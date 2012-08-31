@@ -1,0 +1,22 @@
+application: JSA
+version: 1
+runtime: java
+
+handlers:
+- url: /admin/*
+  login: admin
+  
+- url: /admin/conventions
+  servlet: org.jsa.socal.mobile.ConventionAdminServlet
+  name: Convention Admin
+  
+- url: /home
+  servlet: org.jsa.socal.mobile.HomeServlet
+  name: JSA
+
+admin_console:
+  pages:
+  - name: Conventions
+    url: /admin/conventions
+  - name: Debates
+    url: /admin/debates

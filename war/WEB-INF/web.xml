@@ -1,23 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns="http://java.sun.com/xml/ns/javaee"
-xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-	<servlet>
-		<servlet-name>JSA</servlet-name>
-		<servlet-class>org.jsa.socal.mobile.HomeServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>JSA</servlet-name>
-		<url-pattern>/home</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>Conventions</servlet-name>
-		<servlet-class>org.jsa.socal.mobile.ConventionsServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Conventions</servlet-name>
-		<url-pattern>/conventions</url-pattern>
-	</servlet-mapping>
+<!-- Generated from app.yaml. Do not edit. -->
+<web-app version='2.5' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/admin/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <servlet>
+    <servlet-name>Convention Admin</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.ConventionAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Convention Admin</servlet-name>
+    <url-pattern>/admin/conventions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>JSA</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.HomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSA</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
 </web-app>
