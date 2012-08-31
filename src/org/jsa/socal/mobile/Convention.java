@@ -99,8 +99,12 @@ public class Convention {
 		return debates;
 	}
 	
-	public void save(){
+	public void saveAsync(){
 		DatastoreServiceFactory.getAsyncDatastoreService().put(data);
+	}
+	
+	public void save(){
+		datastore.put(data);
 	}
 	
 	@Override

@@ -21,12 +21,14 @@
 
 	<h1>Convention Admin</h1>
 
-	<button id="submitall">Submit All</button>
+	<button href="#bottom">Go to End</button>
+	<br>
+	<br>
 
 	<%
 		for(Convention c : conventions){
 	%>
-	<form action="/admin/conventions" method="GET">
+	<form action="/admin/conventions" method="POST">
 		<table>
 			<input type="hidden" name="action" value="update-convention" />
 			<input type="hidden" name="id" value="<%=c.getId()%>" />
@@ -34,21 +36,20 @@
 				<td>Title</td>
 				<td><input type="text" name="title" value="<%=c.getTitle()%>" /></td>
 			</tr>
-			<br>
 			<tr>
 				<td>Location</td>
 				<td><input type="text" name="location"
 					value="<%=c.getLocation()%>" /></td>
 			</tr>
-			<br>
 			<tr>
 				<td>Date</td>
 				<td><input name="date" class="date"
 					value="<%=c.getDateString()%>" /></td>
 			</tr>
 		</table>
-		<input type="submit" class="submit" />
+		<input type="submit" />
 	</form>
+
 	<br>
 
 	<%
@@ -57,71 +58,35 @@
 
 	<br>
 	<h3>New convention(s)</h3>
-
-	<div id="newform" style="display: none;">
-		<form action="/admin/conventions" method="GET">
-			<table>
-				<input type="hidden" name="action" value="update-convention" />
-				<input type="hidden" name="id" value="-1" />
-				<tr>
-					<td>Title</td>
-					<td><input type="text" name="title" /></td>
-				</tr>
-				<br>
-				<tr>
-					<td>Location</td>
-					<td><input type="text" name="location" /></td>
-				</tr>
-				<br>
-				<tr>
-					<td>Date</td>
-					<td><input name="date" class="date" /></td>
-				</tr>
-			</table>
-			<input type="submit" class="submit" />
-		</form>
-	</div>
-
-	<div class="newform">
-		<form action="/admin/conventions" method="GET">
-			<table>
-				<input type="hidden" name="action" value="update-convention" />
-				<input type="hidden" name="id" value="-1" />
-				<tr>
-					<td>Title</td>
-					<td><input type="text" name="title" /></td>
-				</tr>
-				<br>
-				<tr>
-					<td>Location</td>
-					<td><input type="text" name="location" /></td>
-				</tr>
-				<br>
-				<tr>
-					<td>Date</td>
-					<td><input name="date" class="date" /></td>
-				</tr>
-			</table>
-			<input type="submit" class="submit" />
-		</form>
-	</div>
-
-
-	<button id="addanother">Add another (will keep current
-		progress)</button>
+	<form action="/admin/conventions" method="POST">
+		<table>
+			<input type="hidden" name="action" value="update-convention" />
+			<input type="hidden" name="id" value="-1" />
+			<tr>
+				<td>Title</td>
+				<td><input type="text" name="title" /></td>
+			</tr>
+			<br>
+			<tr>
+				<td>Location</td>
+				<td><input type="text" name="location" /></td>
+			</tr>
+			<br>
+			<tr>
+				<td>Date</td>
+				<td><input name="date" class="date" /></td>
+			</tr>
+		</table>
+		<input type="submit" />
+	</form>
 
 	<script type="text/javascript">
 		$(".date").datepicker();
-		$("#submitall").click(function() {
-			$(".submit").click();
-		});
-		$("#addanother").click(function() {
-			var newform = $("#newform").clone();
-			newform.removeProp("style");
-			newform.removeAttr("style");
-			newform.removeAttr("id");
-			newform.insertAfter($(".newform"));
-			$(".date").datepicker();
+		$("button[href='#bottom']").click(function() {
+			$("html, body").animate({
+				scrollTop : $(document).height()
+			}, "slow");
+			return false;
 		});
 	</script>
 

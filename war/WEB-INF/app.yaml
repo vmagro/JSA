@@ -10,6 +10,10 @@ handlers:
   servlet: org.jsa.socal.mobile.ConventionAdminServlet
   name: Convention Admin
   
+- url: /admin/debates
+  servlet: org.jsa.socal.mobile.DebateAdminServlet
+  name: Debate Admin
+  
 - url: /home
   servlet: org.jsa.socal.mobile.HomeServlet
   name: JSA
