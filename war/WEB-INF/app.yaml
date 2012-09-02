@@ -2,7 +2,11 @@ application: JSA
 version: 1
 runtime: java
 
+welcome_files:
+    - index.html
+
 handlers:
+
 - url: /admin/*
   login: admin
   
