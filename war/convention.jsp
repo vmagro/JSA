@@ -30,7 +30,7 @@
 			<h1>Conventions</h1>
 			<div data-role="navbar">
 				<ul data-role="navbar" id="menuList">
-					<li><a href="/home" class="contentLink">Home</a></li>
+					<li><a href="/" class="contentLink">Home</a></li>
 					<li><a href="/conventions" class="contentLink">Conventions</a></li>
 					<li><a href="/links" class="contentLink">Links</a></li>
 				</ul>
