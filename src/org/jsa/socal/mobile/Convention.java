@@ -22,17 +22,19 @@ public class Convention {
 
 	private static DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
-	
+
 	private Entity data;
 	private long id;
 
-	public Convention(int id) {
+	public static Convention getConvention(int id) {
 		try {
-			data = datastore.get(KeyFactory.createKey(KIND, id));
+			Entity data = datastore.get(KeyFactory.createKey(KIND, id));
+			return new Convention(data);
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return null;
 		}
-		this.id = id;
+
 	}
 
 	public Convention(Entity entity) {
@@ -49,66 +51,67 @@ public class Convention {
 		ArrayList<Convention> conventions = new ArrayList<Convention>();
 		Iterable<Entity> entities = datastore.prepare(new Query(KIND))
 				.asIterable();
-		for(Entity e : entities)
+		for (Entity e : entities)
 			conventions.add(new Convention(e));
 		return conventions;
 	}
-	
-	public String getTitle(){
+
+	public String getTitle() {
 		return (String) data.getProperty(PROP_TITLE);
 	}
-	
-	public Calendar getDate(){
+
+	public Calendar getDate() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis((Long) data.getProperty(PROP_DATE));
 		return cal;
 	}
-	
-	public String getDateString(){
+
+	public String getDateString() {
 		return new SimpleDateFormat("MM/dd/yyyy").format(getDate().getTime());
 	}
-	
-	public String getLocation(){
+
+	public String getLocation() {
 		return (String) data.getProperty(PROP_LOC);
 	}
-	
-	public void setTitle(String value){
+
+	public void setTitle(String value) {
 		data.setProperty(PROP_TITLE, value);
 	}
-	
-	public void setDate(Calendar value){
+
+	public void setDate(Calendar value) {
 		data.setProperty(PROP_DATE, value.getTimeInMillis());
 	}
-	
-	public void setLocation(String value){
+
+	public void setLocation(String value) {
 		data.setProperty(PROP_LOC, value);
 	}
-	
-	public long getId(){
+
+	public long getId() {
 		return id;
 	}
-	
-	public ArrayList<Debate> getDebates(){
+
+	public ArrayList<Debate> getDebates() {
 		ArrayList<Debate> debates = new ArrayList<Debate>();
 		Query q = new Query(Debate.KIND);
-		q.setFilter(new FilterPredicate(Debate.PROP_CONVENTION_ID, FilterOperator.EQUAL, getId()));
+		q.setFilter(new FilterPredicate(Debate.PROP_CONVENTION_ID,
+				FilterOperator.EQUAL, getId()));
 		Iterable<Entity> entities = datastore.prepare(q).asIterable();
-		for(Entity e : entities){
+		for (Entity e : entities) {
 			debates.add(new Debate(e));
 		}
 		return debates;
 	}
-	
-	public void saveAsync(){
+
+	public void saveAsync() {
 		DatastoreServiceFactory.getAsyncDatastoreService().put(data);
 	}
-	
-	public void save(){
+
+	public void save() {
 		datastore.put(data);
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return data.toString();
 	}
 

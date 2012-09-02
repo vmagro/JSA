@@ -31,7 +31,7 @@ public class ConventionAdminServlet extends HttpServlet {
 				if(id == -1) //new convention
 					c = new Convention();
 				else
-					c = new Convention(id);
+					c = Convention.getConvention(id);
 				c.setTitle(req.getParameter("title"));
 				c.setLocation(req.getParameter("location"));
 				Calendar cal = Calendar.getInstance();

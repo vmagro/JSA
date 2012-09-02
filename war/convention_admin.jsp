@@ -29,9 +29,9 @@
 		for(Convention c : conventions){
 	%>
 	<form action="/admin/conventions" method="POST">
+		<input type="hidden" name="action" value="update-convention" />
+		<input type="hidden" name="id" value="<%=c.getId()%>" />
 		<table>
-			<input type="hidden" name="action" value="update-convention" />
-			<input type="hidden" name="id" value="<%=c.getId()%>" />
 			<tr>
 				<td>Title</td>
 				<td><input type="text" name="title" value="<%=c.getTitle()%>" /></td>
@@ -49,7 +49,10 @@
 		</table>
 		<input type="submit" />
 	</form>
+	<a href="/admin/debates?convention=<%=c.getId()%>" data-role="button">Debate
+		Admin</a>
 
+	<br>
 	<br>
 
 	<%

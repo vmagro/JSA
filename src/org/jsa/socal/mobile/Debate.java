@@ -38,6 +38,11 @@ public class Debate {
 		this.data.setProperty(PROP_CONVENTION_ID, c.getId());
 	}
 	
+	public Debate(){
+		this.data = new Entity(KIND);
+		this.id = data.getKey().getId();
+	}
+	
 	public static class Comment{
 		
 	}

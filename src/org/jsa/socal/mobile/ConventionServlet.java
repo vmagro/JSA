@@ -22,7 +22,7 @@ public class ConventionServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		int convId = Integer.parseInt(req.getParameter(PARAM_CONVENTION_ID));
-		Convention conv = new Convention(convId);
+		Convention conv = Convention.getConvention(convId);
 		req.setAttribute("title", conv.getTitle());
 		Calendar date = conv.getDate();
 		req.setAttribute("date", date.get(Calendar.MONTH)+"/"+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.YEAR));
