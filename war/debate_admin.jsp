@@ -18,9 +18,12 @@
 
 	<%
 		ArrayList<Debate> debates = (ArrayList<Debate>) request.getAttribute("debates");
+		Convention convention = (Convention) request.getAttribute("convention");
 	%>
 
-	<h1>Convention Admin</h1>
+	<h1>Debate Admin for <%=convention.getTitle() %></h1>
+	<h4><%=convention.getDateString() %></h4>
+	<h4><%=convention.getLocation() %></h4>
 
 	<button href="#bottom">Go to End</button>
 	<br>
@@ -30,18 +33,19 @@
 		for(Debate d : debates){
 	%>
 	<form action="/admin/debates" method="POST">
+		<input type="hidden" name="convention" value="<%=convention.getId() %>" />
 		<input type="hidden" name="action" value="update-debate" />
 		<input type="hidden" name="id" value="<%=d.getId()%>" />
 		<table>
-
 			<tr>
 				<td>Title</td>
-				<td><input type="text" name="title" value="<%=d.getTitle()%>" /></td>
+				<td><input type="text" name="title" value="<%=d.getTitle()%>"/></td>
 			</tr>
 			<tr>
 				<td>Resolution</td>
-				<td><input type="text" name="location"
-					value="<%=d.getResolution()%>" /></td>
+				<td>
+				<textarea name="resolution" cols="40" rows="10"><%=d.getResolution()%></textarea>
+				</td>
 			</tr>
 		</table>
 		<input type="submit" />
@@ -56,23 +60,17 @@
 	<br>
 	<h3>New debate</h3>
 	<form action="/admin/debates" method="POST">
+		<input type="hidden" name="convention" value="<%=convention.getId() %>" />
 		<input type="hidden" name="action" value="update-debate" />
 		<input type="hidden" name="id" value="-1" />
 		<table>
-			
 			<tr>
 				<td>Title</td>
 				<td><input type="text" name="title" /></td>
 			</tr>
-			<br>
 			<tr>
-				<td>Location</td>
-				<td><input type="text" name="location" /></td>
-			</tr>
-			<br>
-			<tr>
-				<td>Date</td>
-				<td><input name="date" class="date" /></td>
+				<td>Resolution</td>
+				<td><textarea name="resolution" cols="40" rows="10"></textarea></td>
 			</tr>
 		</table>
 		<input type="submit" />

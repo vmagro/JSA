@@ -62,9 +62,9 @@
 	<br>
 	<h3>New convention(s)</h3>
 	<form action="/admin/conventions" method="POST">
+		<input type="hidden" name="action" value="update-convention" />
+		<input type="hidden" name="id" value="-1" />
 		<table>
-			<input type="hidden" name="action" value="update-convention" />
-			<input type="hidden" name="id" value="-1" />
 			<tr>
 				<td>Title</td>
 				<td><input type="text" name="title" /></td>

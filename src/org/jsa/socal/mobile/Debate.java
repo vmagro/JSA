@@ -28,7 +28,7 @@ public class Debate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.id = data.getKey().getId();
+		this.id = id;
 		this.conventionId = (Long) data.getProperty(PROP_CONVENTION_ID);
 	}
 	
@@ -56,11 +56,15 @@ public class Debate {
 	}
 	
 	public void setTitle(String value){
-		data.setProperty(PROP_TITLE, PROP_TITLE);
+		data.setProperty(PROP_TITLE, value);
 	}
 	
 	public void setResolution(String value){
 		data.setProperty(PROP_RESOLUTION, value);
+	}
+	
+	public void setConventionId(long value){
+		data.setProperty(PROP_CONVENTION_ID, value);
 	}
 	
 	public long getId(){
@@ -72,7 +76,12 @@ public class Debate {
 	}
 	
 	public void save(){
-		DatastoreServiceFactory.getAsyncDatastoreService().put(data);
+		DatastoreServiceFactory.getDatastoreService().put(data);
+	}
+	
+	@Override
+	public String toString(){
+		return data.toString();
 	}
 
 }

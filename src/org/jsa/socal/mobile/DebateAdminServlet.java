@@ -19,11 +19,10 @@ public class DebateAdminServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		
 		String action = req.getParameter("action");
 		if(action == null)
 			action = "";
-		if(action.equalsIgnoreCase("update-convention")){
+		if(action.equalsIgnoreCase("update-debate")){
 			int debateId = Integer.parseInt(req.getParameter("id"));
 			Debate d = null;
 			if(debateId == -1)
@@ -31,15 +30,21 @@ public class DebateAdminServlet extends HttpServlet {
 			else
 				d = new Debate(debateId); //get existing debate
 			d.setResolution(req.getParameter("resolution"));
+			System.out.println(req.getParameter("title"));
 			d.setTitle(req.getParameter("title"));
+			d.setConventionId(Long.parseLong(req.getParameter("convention")));
+			System.out.println(d);
 			d.save();
 		}
 		
-		String convid = req.getParameter("id");
+		String convid = req.getParameter("convention");
 		if(convid != null){
 			Convention c = Convention.getConvention(Integer.parseInt(convid));
-			if(c != null)
+			if(c != null){
 				req.setAttribute("debates", c.getDebates());
+				System.out.println("sending "+c.getDebates().size()+" debates");
+				req.setAttribute("convention", c);
+			}
 		}
 		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/debate_admin.jsp");
