@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class ConventionServlet extends HttpServlet {
 	
-	private static final String PARAM_CONVENTION_ID = "conv";
+	private static final String PARAM_CONVENTION_ID = "id";
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
@@ -30,7 +30,7 @@ public class ConventionServlet extends HttpServlet {
 		req.setAttribute("debates", conv.getDebates());
 		
 		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/convention.jsp");
 		rd.forward(req, resp);
 	}
 }

@@ -18,11 +18,35 @@
     <url-pattern>/admin/conventions</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>Debate Admin</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.DebateAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Debate Admin</servlet-name>
+    <url-pattern>/admin/debates</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>JSA</servlet-name>
     <servlet-class>org.jsa.socal.mobile.HomeServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>JSA</servlet-name>
     <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Conventions</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.ConventionsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Conventions</servlet-name>
+    <url-pattern>/conventions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Convention</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.ConventionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Convention</servlet-name>
+    <url-pattern>/convention</url-pattern>
   </servlet-mapping>
 </web-app>

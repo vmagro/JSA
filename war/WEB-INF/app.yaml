@@ -18,6 +18,15 @@ handlers:
   servlet: org.jsa.socal.mobile.HomeServlet
   name: JSA
 
+- url: /conventions
+  servlet: org.jsa.socal.mobile.ConventionsServlet
+  name: Conventions
+  
+- url: /convention
+  servlet: org.jsa.socal.mobile.ConventionServlet
+  name: Convention
+  
+
 admin_console:
   pages:
   - name: Conventions
