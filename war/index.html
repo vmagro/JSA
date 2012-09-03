@@ -3,14 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>JSA</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta id="extViewportMeta" name="viewport"
+<meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css" />
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="js/jquery.mobile-1.1.1.min.js"></script>
+<link rel="apple-touch-icon" href="/images/iphone_icon.png"/>
+<link rel="apple-touch-startup-image" href="/images/iphone_splash.png" />
+<link rel="stylesheet" href="/css/jquery.mobile-1.1.1.min.css" />
+<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery.mobile-1.1.1.min.js"></script>
+<link rel="stylesheet" href="/css/redwhiteandblue/red-white-and-blue.min.css"/>
+<link rel="stylesheet" href="/css/add2home.css">
+<script type="application/javascript" src="/js/add2home.js"></script>
 </head>
 <body>
 
@@ -28,8 +32,57 @@
 		</div>
 
 		<div data-role="content">
-			<h1>Hello, Welcome to SoCal JSA</h1>
+			<center>
+				<img src="/images/banner.png" style="width: 100%;">
+<!-- 				<h3>Welcome to SoCal JSA</h3> -->
+				<br>
+				<table border="1">
+					<tr>
+						<td><center><h5>Governor</h5></center></td>
+						<td><center><h5><a href="mailto:jjoss@jsa.org">Julianna Joss</a></h5></center></td>
+					</tr>
+					<tr>
+						<td><center><h5>Lieutenant Governor</h5></center></td>
+						<td><center><h5><a href="mailto:gcrater@socal.jsa.org">Grant Crater</a></h5></center></td>
+					</tr>
+					<tr>
+						<td><center><h5>Speaker of the Assembly</h5></center></td>
+						<td><center><h5><a href="mailto:nmichelson@socal.jsa.org">Nicole Michelson</a></h5></center></td>
+					</tr>
+					<tr>
+						<td><center><h5>Chief of Staff</h5></center></td>
+						<td><center><h5><a href="mailto:vedwards@socal.jsa.org">Valerie Edwards</a></h5></center></td>
+					</tr>
+					<tr>
+						<td><center><h5>National JSA Liasion</h5></center></td>
+						<td><center><h5><a href="mailto:ibernstein@socal.jsa.org">Ian Bernstein</a></h5></center></td>
+					</tr>
+					<tr>
+						<td><center><h5>National Press Secretary</h5></center></td>
+						<td><center><h5><a href="mailto:kchon@socal.jsa.org">Kevin Chon</a></h5></center></td>
+					</tr>
+					<tr>
+						<td><center><h5>Director of Technology</h5></center></td>
+						<td><center><h5><a href="mailto:vmagro@socal.jsa.org">Vinnie Magro</a></h5></center></td>
+					</tr>
+					<tr>
+						<td><center><h5>Director of Technology</h5></center></td>
+						<td><center><h5><a href="mailto:jchen@socal.jsa.org">Jane Chen</a></h5></center></td>
+					</tr>
+				</table>
+			</center>
 		</div>
+		
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				// Set a timeout...
+				setTimeout(function() {
+					// Hide the address bar!
+					window.scrollTo(0, 1);
+				}, 0);
+			});
+		</script>
+		
 	</div>
 
 </body>

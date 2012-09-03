@@ -13,9 +13,12 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="/images/iphone_icon.png"/>
+<link rel="apple-touch-startup-image" href="/images/iphone_splash.png" />
 <link rel="stylesheet" href="/css/jquery.mobile-1.1.1.min.css" />
 <script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="/js/jquery.mobile-1.1.1.min.js"></script>
+<link rel="stylesheet" href="css/redwhiteandblue/red-white-and-blue.min.css"/>
 </head>
 <body>
 
@@ -42,7 +45,7 @@
 				<%
 					for (Debate d : debates) {
 				%>
-				<li><a href="/debate?id=<%=d.getId() %>">
+				<li><a href="/debate?id=<%=d.getId() %>" rel="external">
 						<h2><%=d.getTitle()%></h2>
 						<p><%=d.getResolution()%></p>
 				</a></li>
@@ -51,6 +54,17 @@
 				%>
 			</ul>
 		</div>
+		
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				// Set a timeout...
+				setTimeout(function() {
+					// Hide the address bar!
+					window.scrollTo(0, 1);
+				}, 0);
+			});
+		</script>
+		
 	</div>
 
 </body>

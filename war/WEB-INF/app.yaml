@@ -1,10 +1,19 @@
-application: JSA
-version: 1
+application: socal-jsa
+version: 3
 runtime: java
+
+sessions_enabled: true
 
 welcome_files:
     - index.html
 
+static_files:
+    - include: /**.png
+    - include: /**.gif
+    - include: /**.css
+    - include: /**.js
+      expiration: 1d 0h
+      
 handlers:
 
 - url: /admin/*
@@ -29,6 +38,9 @@ handlers:
 - url: /debate
   servlet: org.jsa.socal.mobile.DebateServlet
   name: Debate
+
+- url: /links
+  jsp: /links.jsp
   
 admin_console:
   pages:
@@ -36,3 +48,5 @@ admin_console:
     url: /admin/conventions
   - name: Debates
     url: /admin/debates
+    
+    

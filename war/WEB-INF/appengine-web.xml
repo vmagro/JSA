@@ -1,8 +1,12 @@
 <!-- Generated from app.yaml. Do not edit. -->
 <appengine-web-app xmlns='http://appengine.google.com/ns/1.0'>
-  <application>JSA</application>
-  <version>1</version>
+  <application>socal-jsa</application>
+  <version>3</version>
   <static-files>
+    <include path='/**.png'/>
+    <include path='/**.gif'/>
+    <include path='/**.css'/>
+    <include path='/**.js' expiration='1d 0h'/>
   </static-files>
   <resource-files>
   </resource-files>
@@ -10,7 +14,7 @@
   <precompilation-enabled>true</precompilation-enabled>
   <threadsafe>false</threadsafe>
   <code-lock>false</code-lock>
-  <sessions-enabled>false</sessions-enabled>
+  <sessions-enabled>true</sessions-enabled>
   <warmup-requests-enabled>false</warmup-requests-enabled>
   <admin-console>
     <page name='Conventions' url='/admin/conventions'/>

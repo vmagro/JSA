@@ -44,7 +44,6 @@ public class ConventionAdminServlet extends HttpServlet {
 				}
 				cal.setTimeInMillis(date.getTime());
 				c.setDate(cal);
-				System.out.println(c);
 				c.save();
 			}
 		}
