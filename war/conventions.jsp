@@ -32,7 +32,7 @@
 	<div data-role="page">
 	
 		<div data-role="header" id="header">
-			<h1>Conventions</h1>
+			<h1>Conferences</h1>
 			<div data-role="navbar">
 				<ul data-role="navbar" id="menuList">
 					<li><a href="/" class="contentLink">Home</a></li>
