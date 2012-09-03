@@ -50,14 +50,12 @@ public class DebateServlet extends HttpServlet {
 		if (action.equalsIgnoreCase("add-comment")) {
 			debate.addComment(req.getParameter("author"),
 					req.getParameter("text"));
-			System.out.println("add comment");
 			resp.setStatus(200);
 			return;
 		} else if (action.equalsIgnoreCase("delete-comment")) {
 			if (users.isUserAdmin()) {
 				int commentId = Integer.parseInt(req.getParameter("comment"));
 				debate.removeComment(commentId);
-				System.out.println("deleting: " + commentId);
 			}
 			return;
 		} else {
