@@ -38,7 +38,7 @@
 		<input type="hidden" name="id" value="<%=d.getId()%>" />
 		<table>
 			<tr>
-				<td>Title</td>
+				<td>Block</td>
 				<td><input type="text" name="title" value="<%=d.getTitle()%>"/></td>
 			</tr>
 			<tr>
