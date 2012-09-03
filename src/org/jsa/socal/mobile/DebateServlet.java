@@ -43,6 +43,7 @@ public class DebateServlet extends HttpServlet {
 		req.setAttribute("loginUrl", users.createLoginURL(req.getRequestURI()));
 		req.setAttribute("logoutUrl",
 				users.createLogoutURL(req.getRequestURI()));
+		req.setAttribute("reqUri", req.getRequestURI());
 
 		String action = req.getParameter("action");
 		if (action == null)
