@@ -1,0 +1,9 @@
+indexes:
+
+- kind: Comment
+  ancestor: no
+  properties:
+  - name: i
+    direction: asc
+  - name: d
+    direction: desc

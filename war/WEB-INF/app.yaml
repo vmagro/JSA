@@ -1,5 +1,5 @@
-application: JSA
-version: 2
+application: socal-jsa
+version: 3
 runtime: java
 
 sessions_enabled: true
@@ -48,3 +48,5 @@ admin_console:
     url: /admin/conventions
   - name: Debates
     url: /admin/debates
+    
+    

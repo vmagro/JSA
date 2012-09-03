@@ -1,7 +1,7 @@
 <!-- Generated from app.yaml. Do not edit. -->
 <appengine-web-app xmlns='http://appengine.google.com/ns/1.0'>
-  <application>JSA</application>
-  <version>1</version>
+  <application>socal-jsa</application>
+  <version>3</version>
   <static-files>
     <include path='/**.png'/>
     <include path='/**.gif'/>
