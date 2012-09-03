@@ -15,6 +15,14 @@
 <link rel="stylesheet" href="/css/redwhiteandblue/red-white-and-blue.min.css"/>
 <link rel="stylesheet" href="/css/add2home.css">
 <script type="application/javascript" src="/js/add2home.js"></script>
+<script type="text/javascript">
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+	if (isAndroid) {
+		//all ua's coming from the native wrapper app have a ua of socal-jsa-web-app, so we don't need to check for that here
+		window.location = 'http://android.davidwalsh.name';
+	}
+</script>
 </head>
 <body>
 
@@ -33,9 +41,7 @@
 
 		<div data-role="content">
 			<center>
-				<img src="/images/banner.png" style="width: 100%;">
-<!-- 				<h3>Welcome to SoCal JSA</h3> -->
-				<br>
+				<img src="/images/banner.png" style="width: 100%; margin-bottom: 10px">
 				<table border="1">
 					<tr>
 						<td><center><h5>Governor</h5></center></td>
