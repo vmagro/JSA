@@ -1,7 +1,6 @@
 package org.jsa.socal.mobile;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,8 +23,7 @@ public class ConventionServlet extends HttpServlet {
 		int convId = Integer.parseInt(req.getParameter(PARAM_CONVENTION_ID));
 		Convention conv = Convention.getConvention(convId);
 		req.setAttribute("title", conv.getTitle());
-		Calendar date = conv.getDate();
-		req.setAttribute("date", date.get(Calendar.MONTH)+"/"+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.YEAR));
+		req.setAttribute("date", conv.getDateString());
 		req.setAttribute("location", conv.getLocation());
 		req.setAttribute("debates", conv.getDebates());
 		

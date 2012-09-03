@@ -34,13 +34,19 @@
 			<div data-role="navbar">
 				<ul data-role="navbar" id="menuList">
 					<li><a href="/" class="contentLink">Home</a></li>
-					<li><a href="/conventions" class="contentLink">Conventions</a></li>
+					<li><a href="/conventions" class="contentLink">Conferences</a></li>
 					<li><a href="/links" class="contentLink">Links</a></li>
 				</ul>
 			</div>
 		</div>
 
 		<div data-role="content">
+		
+			<h2><%=request.getAttribute("title") %></h2>
+			<h4><%=request.getAttribute("date") %></h4>
+			<p><%=request.getAttribute("location") %></p>
+			<br>
+			<h4>Debates</h4>
 			<ul data-role="listview">
 				<%
 					for (Debate d : debates) {
