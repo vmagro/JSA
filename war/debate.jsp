@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="org.jsa.socal.mobile.Debate"%>
 <%@ page import="org.jsa.socal.mobile.Debate.Comment"%>
+<%@ page import="com.google.appengine.api.users.User"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,6 +23,7 @@
 
 	<%
 		Debate debate = (Debate) request.getAttribute("debate");
+		User user = (User) request.getAttribute("user");
 	%>
 
 	<div data-role="page">
@@ -41,14 +43,14 @@
 			<h3>Resolution</h3>
 			<p><%=debate.getResolution() %></p>
 			<h5>Comments</h5>
-			<a href="/debate?action=new-comment&id=<%=debate.getId() %>"
+			<a href="#new-comment"
 				data-role="button" data-rel="dialog">Leave a comment</a> <br>
 			<ul data-role="listview">
 				<%
 					ArrayList<Comment> comments = debate.getComments();
 					for(Comment c : comments){
 				%>
-				<li cid=<%=c.getId() %>>
+				<li cid=<%=c.getId() %>" class="comment">
 					<h5><%=c.getAuthor() %></h5>
 					<p><%=c.getDateString() %></p> <br>
 					<p><%=c.getText() %></p>
@@ -72,6 +74,46 @@
 			        );  
 			});
 		</script>
+	</div>
+	
+	<!-- new comment form -->
+	<div data-role="page" data-url="new-comment">
+		<div data-role="header">
+			<h1>New Comment</h1>
+		</div>
+		
+		<div data-role="content">
+			<p>
+				Your name (<%=user.getNickname()%>) will be recorded along with your
+				comment. Please keep your comments appropriate. Thank you for your
+				participation.
+			</p>
+
+			<div>
+				<textarea name="text" cols="40" rows="20"></textarea>
+				<div id="submitcomment" data-role="button">Submit</div>
+			</div>
+			
+			<script>
+				$(document).ready(function(){
+					$("#submitcomment").unbind("click");
+					$("#submitcomment").click(function(){
+						console.log("clicked");
+						var ftext = $("textarea[name='text']").val();
+						var fauthor = "<%=user.getNickname()%>";
+						$.post(  
+					    	"/debate",
+					        {id: <%=debate.getId()%>, action : "add-comment", text: ftext, author: fauthor},
+					        function(responseText){  
+					        	$('.ui-dialog').dialog('close');
+					        	
+					        }
+					    );
+					    return false;
+					})
+				});
+			</script>
+		</div>
 	</div>
 
 </body>

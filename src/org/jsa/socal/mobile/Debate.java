@@ -89,7 +89,7 @@ public class Debate {
 		}
 
 		public String getDateString() {
-			return new SimpleDateFormat("MM/dd/yyyy hh:mm").format(getDate()
+			return new SimpleDateFormat("MM/dd/yyyy hh:mm a").format(getDate()
 					.getTime());
 		}
 
