@@ -53,7 +53,7 @@
 					<p><%=c.getDateString() %></p> <br>
 					<p><%=c.getText() %></p>
 					<%if((Boolean) request.getAttribute("admin")){%>
-						<a href="/debate?action=delete-comment&comment=<%=c.getId() %>&id=<%=debate.getId() %>" data-role="button" >Delete</a>
+						<a href="/debate?action=delete-comment&comment=<%=c.getId() %>&id=<%=debate.getI %>" data-role="button" >Delete</a>
 					<%}%>
 				</li>
 				<%} %>
