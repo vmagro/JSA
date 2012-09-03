@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/css/jquery.mobile-1.1.1.min.css" />
 <script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="/js/jquery.mobile-1.1.1.min.js"></script>
+<link rel="stylesheet" href="css/redwhiteandblue/red-white-and-blue.min.css"/>
 </head>
 <body>
 
@@ -42,7 +43,7 @@
 				<%
 					for (Debate d : debates) {
 				%>
-				<li><a href="/debate?id=<%=d.getId() %>">
+				<li><a href="/debate?id=<%=d.getId() %>" rel="external">
 						<h2><%=d.getTitle()%></h2>
 						<p><%=d.getResolution()%></p>
 				</a></li>
@@ -51,6 +52,17 @@
 				%>
 			</ul>
 		</div>
+		
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				// Set a timeout...
+				setTimeout(function() {
+					// Hide the address bar!
+					window.scrollTo(0, 1);
+				}, 0);
+			});
+		</script>
+		
 	</div>
 
 </body>

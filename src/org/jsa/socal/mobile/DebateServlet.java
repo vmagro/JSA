@@ -21,8 +21,15 @@ public class DebateServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		int debateId = Integer.parseInt(req.getParameter("id"));
-		Debate debate = Debate.getDebate(debateId);
+		Debate debate = null;
+		int debateId = 0;
+		if (req.getParameter("id") == null) {
+			debateId = (Integer) req.getSession().getAttribute("debateId");
+		}
+		else
+			debateId = Integer.parseInt(req.getParameter("id"));
+		req.getSession().setAttribute("debateId", debateId);
+		debate = Debate.getDebate(debateId);
 		if (debate != null) {
 			req.setAttribute("debate", debate);
 			req.setAttribute("title", debate.getTitle());
@@ -33,11 +40,16 @@ public class DebateServlet extends HttpServlet {
 
 		String jsp = "";
 
+		req.setAttribute("loginUrl", users.createLoginURL(req.getRequestURI()));
+		req.setAttribute("logoutUrl",
+				users.createLogoutURL(req.getRequestURI()));
+
 		String action = req.getParameter("action");
 		if (action == null)
 			action = "";
 		if (action.equalsIgnoreCase("add-comment")) {
-			debate.addComment(users.getCurrentUser().getNickname(), req.getParameter("text"));
+			debate.addComment(users.getCurrentUser().getNickname(),
+					req.getParameter("text"));
 			System.out.println("add comment");
 			resp.setStatus(200);
 			return;
@@ -45,11 +57,13 @@ public class DebateServlet extends HttpServlet {
 			if (users.isUserAdmin()) {
 				int commentId = Integer.parseInt(req.getParameter("comment"));
 				debate.removeComment(commentId);
-				System.out.println("deleting: "+commentId);
+				System.out.println("deleting: " + commentId);
 			}
 			return;
 		} else {
-			req.setAttribute("admin", users.isUserAdmin());
+			if (users.isUserLoggedIn()) {
+				req.setAttribute("admin", users.isUserAdmin());
+			}
 			jsp = "debate";
 		}
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(

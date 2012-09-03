@@ -10,20 +10,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><%=request.getAttribute("title") %></title>
 <meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <link rel="stylesheet" href="/css/jquery.mobile-1.1.1.min.css" />
 <script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="/js/jquery.mobile-1.1.1.min.js"></script>
+<link rel="stylesheet" href="css/redwhiteandblue/red-white-and-blue.min.css"/>
 </head>
 <body>
 
 	<%
 		Debate debate = (Debate) request.getAttribute("debate");
-		User user = (User) request.getAttribute("user");
+		User user = null;
+		if(request.getAttribute("user") != null)
+			user = (User) request.getAttribute("user");
 	%>
 
 	<div data-role="page">
@@ -53,7 +54,7 @@
 				<li cid=<%=c.getId() %>" class="comment">
 					<h5><%=c.getAuthor() %></h5>
 					<p><%=c.getDateString() %></p> <br>
-					<p><%=c.getText() %></p>
+					<p style="white-space:normal"><%=c.getText() %></p>
 					<%if(request.getAttribute("admin") != null && (Boolean) request.getAttribute("admin")){%>
 						<a class="deleteComment" cid=<%=c.getId() %> data-role="button">Delete</a>
 					<%}%>
@@ -74,6 +75,17 @@
 			        );  
 			});
 		</script>
+		
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				// Set a timeout...
+				setTimeout(function() {
+					// Hide the address bar!
+					window.scrollTo(0, 1);
+				}, 0);
+			});
+		</script>
+		
 	</div>
 	
 	<!-- new comment form -->
@@ -83,6 +95,10 @@
 		</div>
 		
 		<div data-role="content">
+			<%if(user == null){%>
+				<p>Please login <a href="<%=request.getAttribute("loginUrl")%>">here</a> to submit a comment.
+			<%}%>
+			<%if(user != null){ %>
 			<p>
 				Your name (<%=user.getNickname()%>) will be recorded along with your
 				comment. Please keep your comments appropriate. Thank you for your
@@ -113,6 +129,7 @@
 					})
 				});
 			</script>
+			<%} %>
 		</div>
 	</div>
 
