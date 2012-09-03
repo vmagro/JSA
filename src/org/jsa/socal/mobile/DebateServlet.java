@@ -36,7 +36,6 @@ public class DebateServlet extends HttpServlet {
 		}
 
 		UserService users = UserServiceFactory.getUserService();
-		req.setAttribute("user", users.getCurrentUser());
 
 		String jsp = "";
 
@@ -49,7 +48,7 @@ public class DebateServlet extends HttpServlet {
 		if (action == null)
 			action = "";
 		if (action.equalsIgnoreCase("add-comment")) {
-			debate.addComment(users.getCurrentUser().getNickname(),
+			debate.addComment(req.getParameter("author"),
 					req.getParameter("text"));
 			System.out.println("add comment");
 			resp.setStatus(200);

@@ -49,9 +49,6 @@
 
 	<%
 		Debate debate = (Debate) request.getAttribute("debate");
-		User user = null;
-		if(request.getAttribute("user") != null)
-			user = (User) request.getAttribute("user");
 	%>
 
 	<div data-role="page">
@@ -68,9 +65,9 @@
 		</div>
 
 		<div data-role="content">
-			<h3>Resolution</h3>
+			<h2>Resolution</h2>
 			<p><%=debate.getResolution() %></p>
-			<h5>Comments</h5>
+			<h3>Comments</h3>
 			<a href="#new-comment" data-role="button" data-rel="dialog">Leave
 				a comment</a> <br>
 			<ul data-role="listview" id="comments">
@@ -123,16 +120,15 @@
 		<div data-role="content">
 
 			<script>
-				if(!$(".fb-login-button")){//user logged in
-					$("#commentform").show();
-				}
-				$(".fb-login-button").click(function(){
-					
-				});
+				var name = "";
 				FB.login(function(response) {
 				   if (response.authResponse) {
-				     FB.api('/me', function(response) {
-				       console.log('Good to see you, ' + response.name + '.');
+				   	FB.api('/me', function(response) {
+				  		name = response.name;
+						console.log('Good to see you, ' + response.name + '.');
+						$("#name").text(response.name);
+				       	$("#mustlogin").remove();
+				       	$("#commentform").show();
 				     });
 				   } else {
 				     console.log('User cancelled login or did not fully authorize.');
@@ -140,13 +136,12 @@
 				   });
 			</script>
 			
-			<div class="fb-login-button">
 			<p id="mustlogin">You must login with Facebook to submit a comment</p>
 			
 
 			<div id="commentform" style="display: none">
 				<p>
-					Your name (<%=user.getNickname()%>) will be recorded along with
+					Your name (<span id="name"></span>) will be recorded along with
 					your comment. Please keep your comments appropriate. Thank you for
 					your participation.
 				</p>
@@ -162,7 +157,8 @@
 					$("#submitcomment").click(function(){
 						console.log("clicked");
 						var ftext = $("textarea[name='text']").val();
-						var fauthor = "<%=user.getNickname()%>";
+						console.log(name);
+						var fauthor = name;
 						$.post(  
 					    	"/debate",
 					        {id: <%=debate.getId()%>, action : "add-comment", text: ftext, author: fauthor},

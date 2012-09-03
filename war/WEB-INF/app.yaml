@@ -12,6 +12,7 @@ static_files:
     - include: /**.gif
     - include: /**.css
     - include: /**.js
+    - include: /**.ico
       expiration: 1d 0h
       
 handlers:

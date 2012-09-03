@@ -51,8 +51,9 @@ public class Convention {
 	public static ArrayList<Convention> getConventions() {
 		ArrayList<Convention> conventions = new ArrayList<Convention>();
 		Query q = new Query(KIND);
-		q.addSort(PROP_DATE, SortDirection.DESCENDING);
-		q.addSort(PROP_TITLE, SortDirection.ASCENDING);
+		q.setFilter(new FilterPredicate(PROP_DATE, FilterOperator.GREATER_THAN_OR_EQUAL, Calendar.getInstance().getTimeInMillis()));
+		q.addSort(PROP_DATE, SortDirection.ASCENDING);
+		//q.addSort(PROP_TITLE, SortDirection.ASCENDING);
 		Iterable<Entity> entities = datastore.prepare(q).asIterable();
 		for (Entity e : entities)
 			conventions.add(new Convention(e));
