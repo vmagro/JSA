@@ -45,7 +45,7 @@
 			<h5>Comments</h5>
 			<a href="#new-comment"
 				data-role="button" data-rel="dialog">Leave a comment</a> <br>
-			<ul data-role="listview">
+			<ul data-role="listview" id="comments">
 				<%
 					ArrayList<Comment> comments = debate.getComments();
 					for(Comment c : comments){
@@ -88,6 +88,7 @@
 				comment. Please keep your comments appropriate. Thank you for your
 				participation.
 			</p>
+			<p>Note: your comment will appear after a page refresh</p>
 
 			<div>
 				<textarea name="text" cols="40" rows="20"></textarea>
@@ -106,7 +107,6 @@
 					        {id: <%=debate.getId()%>, action : "add-comment", text: ftext, author: fauthor},
 					        function(responseText){  
 					        	$('.ui-dialog').dialog('close');
-					        	
 					        }
 					    );
 					    return false;
