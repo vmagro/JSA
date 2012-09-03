@@ -18,10 +18,6 @@ handlers:
   servlet: org.jsa.socal.mobile.DebateAdminServlet
   name: Debate Admin
   
-- url: /home
-  servlet: org.jsa.socal.mobile.HomeServlet
-  name: JSA
-
 - url: /conventions
   servlet: org.jsa.socal.mobile.ConventionsServlet
   name: Conventions
@@ -30,7 +26,10 @@ handlers:
   servlet: org.jsa.socal.mobile.ConventionServlet
   name: Convention
   
-
+- url: /debate
+  servlet: org.jsa.socal.mobile.DebateServlet
+  name: Debate
+  
 admin_console:
   pages:
   - name: Conventions

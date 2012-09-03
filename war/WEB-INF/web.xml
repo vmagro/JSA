@@ -26,14 +26,6 @@
     <url-pattern>/admin/debates</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>JSA</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.HomeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>JSA</servlet-name>
-    <url-pattern>/home</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>Conventions</servlet-name>
     <servlet-class>org.jsa.socal.mobile.ConventionsServlet</servlet-class>
   </servlet>
@@ -48,6 +40,14 @@
   <servlet-mapping>
     <servlet-name>Convention</servlet-name>
     <url-pattern>/convention</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Debate</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.DebateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Debate</servlet-name>
+    <url-pattern>/debate</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

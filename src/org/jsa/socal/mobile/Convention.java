@@ -11,6 +11,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class Convention {
 
@@ -49,8 +50,10 @@ public class Convention {
 
 	public static ArrayList<Convention> getConventions() {
 		ArrayList<Convention> conventions = new ArrayList<Convention>();
-		Iterable<Entity> entities = datastore.prepare(new Query(KIND))
-				.asIterable();
+		Query q = new Query(KIND);
+		q.addSort(PROP_DATE, SortDirection.DESCENDING);
+		q.addSort(PROP_TITLE, SortDirection.ASCENDING);
+		Iterable<Entity> entities = datastore.prepare(q).asIterable();
 		for (Entity e : entities)
 			conventions.add(new Convention(e));
 		return conventions;

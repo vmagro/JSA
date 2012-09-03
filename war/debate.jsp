@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="org.jsa.socal.mobile.Debate"%>
+<%@ page import="org.jsa.socal.mobile.Debate.Comment"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,14 +21,13 @@
 <body>
 
 	<%
-		ArrayList<Debate> debates = (ArrayList<Debate>) request
-				.getAttribute("debates");
+		Debate debate = (Debate) request.getAttribute("debate");
 	%>
 
 	<div data-role="page">
 
 		<div data-role="header" id="header">
-			<h1><%=request.getAttribute("title") %></h1>
+			<h1><%=debate.getTitle() %></h1>
 			<div data-role="navbar">
 				<ul data-role="navbar" id="menuList">
 					<li><a href="/" class="contentLink">Home</a></li>
@@ -38,17 +38,25 @@
 		</div>
 
 		<div data-role="content">
+			<h3>Resolution</h3>
+			<p><%=debate.getResolution() %></p>
+			<h5>Comments</h5>
+			<a href="/debate?action=new-comment&id=<%=debate.getId() %>"
+				data-role="button" data-rel="dialog">Leave a comment</a> <br>
 			<ul data-role="listview">
 				<%
-					for (Debate d : debates) {
+					ArrayList<Comment> comments = debate.getComments();
+					for(Comment c : comments){
 				%>
-				<li><a href="/debate?id=<%=d.getId() %>">
-						<h2><%=d.getTitle()%></h2>
-						<p><%=d.getResolution()%></p>
-				</a></li>
-				<%
-					}
-				%>
+				<li>
+					<h5><%=c.getAuthor() %></h5>
+					<p><%=c.getDateString() %></p> <br>
+					<p><%=c.getText() %></p>
+					<%if((Boolean) request.getAttribute("admin")){%>
+						<a href="/debate?action=delete-comment&comment=<%=c.getId() %>&id=<%=debate.getId() %>" data-role="button" >Delete</a>
+					<%}%>
+				</li>
+				<%} %>
 			</ul>
 		</div>
 	</div>

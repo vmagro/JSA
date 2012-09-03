@@ -28,7 +28,7 @@ public class DebateAdminServlet extends HttpServlet {
 			if(debateId == -1)
 				d = new Debate(); //does not already exist, make new debate
 			else
-				d = new Debate(debateId); //get existing debate
+				d = Debate.getDebate(debateId); //get existing debate
 			d.setResolution(req.getParameter("resolution"));
 			System.out.println(req.getParameter("title"));
 			d.setTitle(req.getParameter("title"));
