@@ -1,5 +1,5 @@
 application: JSA
-version: 1
+version: 2
 runtime: java
 
 sessions_enabled: true
