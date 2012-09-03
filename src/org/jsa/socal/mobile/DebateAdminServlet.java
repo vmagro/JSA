@@ -30,10 +30,8 @@ public class DebateAdminServlet extends HttpServlet {
 			else
 				d = Debate.getDebate(debateId); //get existing debate
 			d.setResolution(req.getParameter("resolution"));
-			System.out.println(req.getParameter("title"));
 			d.setTitle(req.getParameter("title"));
 			d.setConventionId(Long.parseLong(req.getParameter("convention")));
-			System.out.println(d);
 			d.save();
 		}
 		
@@ -42,7 +40,6 @@ public class DebateAdminServlet extends HttpServlet {
 			Convention c = Convention.getConvention(Integer.parseInt(convid));
 			if(c != null){
 				req.setAttribute("debates", c.getDebates());
-				System.out.println("sending "+c.getDebates().size()+" debates");
 				req.setAttribute("convention", c);
 			}
 		}

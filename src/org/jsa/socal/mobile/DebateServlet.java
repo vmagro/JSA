@@ -22,7 +22,6 @@ public class DebateServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		System.out.println(req.getParameter("id"));
 		int debateId = Integer.parseInt(req.getParameter("id"));
 		Debate debate = Debate.getDebate(debateId);
 		if (debate != null) {

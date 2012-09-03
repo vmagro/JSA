@@ -48,17 +48,30 @@
 					ArrayList<Comment> comments = debate.getComments();
 					for(Comment c : comments){
 				%>
-				<li>
+				<li cid=<%=c.getId() %>>
 					<h5><%=c.getAuthor() %></h5>
 					<p><%=c.getDateString() %></p> <br>
 					<p><%=c.getText() %></p>
-					<%if((Boolean) request.getAttribute("admin")){%>
-						<a href="/debate?action=delete-comment&comment=<%=c.getId() %>&id=<%=debate.getId() %>" data-role="button" >Delete</a>
+					<%if(request.getAttribute("admin") != null && (Boolean) request.getAttribute("admin")){%>
+						<a class="deleteComment" cid=<%=c.getId() %> data-role="button">Delete</a>
 					<%}%>
 				</li>
 				<%} %>
 			</ul>
 		</div>
+		
+		<script type="text/javascript">
+			$(".deleteComment").click(function(){
+				var cid = $(this).attr("cid");
+				$.post(  
+			            "/debate",  
+			            {action: "delete-comment", id: <%=debate.getId()%>, comment: cid},
+			            function(responseText){  
+			                $("li[cid="+cid+"]").remove();
+			            }
+			        );  
+			});
+		</script>
 	</div>
 
 </body>
