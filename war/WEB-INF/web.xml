@@ -1,5 +1,29 @@
 <!-- Generated from app.yaml. Do not edit. -->
 <web-app version='2.5' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'>
+  <servlet>
+    <servlet-name>Convention Admin</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.ConventionAdminServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Debate Admin</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.DebateAdminServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Conventions</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.ConventionsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Convention</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.ConventionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Debate</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.DebateServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>/links.jsp</servlet-name>
+    <jsp-file>/links.jsp</jsp-file>
+  </servlet>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>aname</web-resource-name>
@@ -9,45 +33,29 @@
       <role-name>admin</role-name>
     </auth-constraint>
   </security-constraint>
-  <servlet>
-    <servlet-name>Convention Admin</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.ConventionAdminServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>Convention Admin</servlet-name>
     <url-pattern>/admin/conventions</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Debate Admin</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.DebateAdminServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>Debate Admin</servlet-name>
     <url-pattern>/admin/debates</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Conventions</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.ConventionsServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>Conventions</servlet-name>
     <url-pattern>/conventions</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Convention</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.ConventionServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>Convention</servlet-name>
     <url-pattern>/convention</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Debate</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.DebateServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>Debate</servlet-name>
     <url-pattern>/debate</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>/links.jsp</servlet-name>
+    <url-pattern>/links</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

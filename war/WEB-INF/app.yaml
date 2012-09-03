@@ -38,6 +38,9 @@ handlers:
 - url: /debate
   servlet: org.jsa.socal.mobile.DebateServlet
   name: Debate
+
+- url: /links
+  jsp: /links.jsp
   
 admin_console:
   pages:
