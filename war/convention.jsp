@@ -19,9 +19,6 @@
 <script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="/js/jquery.mobile-1.1.1.min.js"></script>
 <link rel="stylesheet" href="css/redwhiteandblue/red-white-and-blue.min.css"/>
-
-<script type="text/javascript" src="/js/android.js"></script>
-
 </head>
 <body>
 
@@ -31,7 +28,7 @@
 	%>
 
 	<div data-role="page">
-
+		<script type="text/javascript" src="/js/android.js"></script>
 		<div data-role="header" id="header">
 			<h1><%=request.getAttribute("title") %></h1>
 			<div data-role="navbar">
@@ -49,6 +46,7 @@
 			<h4><%=request.getAttribute("date") %></h4>
 			<p><%=request.getAttribute("location") %></p>
 			<br>
+			<% if(debates.size() > 0){ %>
 			<h4>Debates</h4>
 			<ul data-role="listview">
 				<%
@@ -62,6 +60,7 @@
 					}
 				%>
 			</ul>
+			<%} %>
 		</div>
 		
 		<script type="text/javascript">
