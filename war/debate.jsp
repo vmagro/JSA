@@ -21,6 +21,9 @@
 <link rel="stylesheet"
 	href="css/redwhiteandblue/red-white-and-blue.min.css" />
 
+<script type="text/javascript" src="/js/android.js"></script>
+
+
 <script type="text/javascript">
   window.fbAsyncInit = function() {
     FB.init({
@@ -135,9 +138,10 @@
 				   }
 				   });
 			</script>
-			
-			<p id="mustlogin">You must login with Facebook to submit a comment</p>
-			
+
+			<p id="mustlogin">You must login with Facebook to submit a
+				comment</p>
+
 
 			<div id="commentform" style="display: none">
 				<p>

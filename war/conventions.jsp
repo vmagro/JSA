@@ -21,6 +21,7 @@
 <link rel="stylesheet"
 	href="css/redwhiteandblue/red-white-and-blue.min.css" />
 
+<script type="text/javascript" src="/js/android.js"></script>
 </head>
 <body>
 
