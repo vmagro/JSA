@@ -46,6 +46,11 @@ public class ConventionAdminServlet extends HttpServlet {
 				c.setDate(cal);
 				c.save();
 			}
+			if(action.equals("delete")){
+				int id = Integer.parseInt(req.getParameter("id"));
+				Convention c = Convention.getConvention(id);
+				c.delete();
+			}
 		}
 		
 		req.setAttribute("conventions", Convention.getConventions());

@@ -51,7 +51,14 @@
 	</form>
 	<a href="/admin/debates?convention=<%=c.getId()%>" data-role="button">Debate
 		Admin</a>
-
+	<button id="deleteButton<%=c.getId()%>">Delete</button>
+	<script type="text/javascript">
+		$("#deleteButton<%=c.getId()%>").click(function(){
+			$.post("/admin/conventions?id=<%=c.getId() %>&action=delete", function(){
+				location.reload();
+			})
+		})
+	</script>
 	<br>
 	<br>
 

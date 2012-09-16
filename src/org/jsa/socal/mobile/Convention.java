@@ -113,6 +113,10 @@ public class Convention {
 	public void save() {
 		datastore.put(data);
 	}
+	
+	public void delete(){
+		datastore.delete(data.getKey());
+	}
 
 	@Override
 	public String toString() {

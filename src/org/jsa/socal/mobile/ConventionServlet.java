@@ -27,7 +27,6 @@ public class ConventionServlet extends HttpServlet {
 		req.setAttribute("location", conv.getLocation());
 		req.setAttribute("debates", conv.getDebates());
 		
-		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/convention.jsp");
 		rd.forward(req, resp);
 	}
