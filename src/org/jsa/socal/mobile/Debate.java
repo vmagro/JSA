@@ -100,8 +100,8 @@ public class Debate {
 		public int getDebateId() {
 			return (Integer) data.getProperty(PROP_DEBATE_ID);
 		}
-		
-		public int getId(){
+
+		public int getId() {
 			return (int) data.getKey().getId();
 		}
 
@@ -148,8 +148,8 @@ public class Debate {
 				.getTimeZone("America/Los_Angeles")));
 		c.save();
 	}
-	
-	public void removeComment(int id){
+
+	public void removeComment(int id) {
 		datastore.delete(KeyFactory.createKey(Comment.KIND, id));
 	}
 
@@ -183,6 +183,10 @@ public class Debate {
 
 	public void save() {
 		datastore.put(data);
+	}
+
+	public void delete() {
+		datastore.delete(data.getKey());
 	}
 
 	@Override

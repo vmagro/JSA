@@ -50,8 +50,16 @@
 		</table>
 		<input type="submit" />
 	</form>
-
 	<br>
+	
+	<button id="deleteButton<%=d.getId()%>">Delete</button>
+	<script type="text/javascript">
+		$("#deleteButton<%=d.getId()%>").click(function(){
+			$.post("/admin/debates?id=<%=d.getId() %>&action=delete", function(){
+				location.reload();
+			})
+		})
+	</script>
 
 	<%
 		}

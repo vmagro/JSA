@@ -28,7 +28,7 @@
 	<%
 		for(Convention c : conventions){
 	%>
-	<form action="/admin/conventions" method="POST">
+	<form action="/admin/conventions" method="POST" id="form<%=c.getId()%>">
 		<input type="hidden" name="action" value="update-convention" />
 		<input type="hidden" name="id" value="<%=c.getId()%>" />
 		<table>
@@ -47,12 +47,15 @@
 					value="<%=c.getDateString()%>" /></td>
 			</tr>
 		</table>
-		<input type="submit" />
+		<input type="submit"/>
+		
 	</form>
+	
 	<a href="/admin/debates?convention=<%=c.getId()%>" data-role="button">Debate
 		Admin</a>
 	<button id="deleteButton<%=c.getId()%>">Delete</button>
 	<script type="text/javascript">
+		$("#form<%=c.getId()%>").ajaxForm
 		$("#deleteButton<%=c.getId()%>").click(function(){
 			$.post("/admin/conventions?id=<%=c.getId() %>&action=delete", function(){
 				location.reload();

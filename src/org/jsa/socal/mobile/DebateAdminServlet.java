@@ -34,6 +34,11 @@ public class DebateAdminServlet extends HttpServlet {
 			d.setConventionId(Long.parseLong(req.getParameter("convention")));
 			d.save();
 		}
+		if(action.equalsIgnoreCase("delete")){
+			int debateId = Integer.parseInt(req.getParameter("id"));
+			Debate d = Debate.getDebate(debateId); //get existing debate
+			d.delete();
+		}
 		
 		String convid = req.getParameter("convention");
 		if(convid != null){
