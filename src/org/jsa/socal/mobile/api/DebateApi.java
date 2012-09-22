@@ -32,7 +32,10 @@ public class DebateApi extends HttpServlet {
 	
 	// POST is used to submit a comment
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		
+		String name = req.getParameter("name");
+		String text = req.getParameter("text");
+		int id = Integer.parseInt(req.getParameter("id"));
+		Debate.getDebate(id).addComment(name, text);
 	}
 
 }
