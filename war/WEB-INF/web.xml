@@ -24,6 +24,14 @@
     <servlet-name>/links.jsp</servlet-name>
     <jsp-file>/links.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>Debate Api</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.api.DebateApi</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Conventions Api</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.api.ConventionsApi</servlet-class>
+  </servlet>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>aname</web-resource-name>
@@ -56,6 +64,14 @@
   <servlet-mapping>
     <servlet-name>/links.jsp</servlet-name>
     <url-pattern>/links</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Debate Api</servlet-name>
+    <url-pattern>/api/debate</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Conventions Api</servlet-name>
+    <url-pattern>/api/conventions</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

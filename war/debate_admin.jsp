@@ -39,7 +39,7 @@
 		<table>
 			<tr>
 				<td>Block</td>
-				<td><input type="text" name="title" value="<%=d.getTitle()%>"/></td>
+				<td><input type="text" name="title" value="<%=d.getBlock()%>"/></td>
 			</tr>
 			<tr>
 				<td>Resolution</td>

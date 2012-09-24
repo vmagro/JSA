@@ -153,7 +153,7 @@ public class Debate {
 		datastore.delete(KeyFactory.createKey(Comment.KIND, id));
 	}
 
-	public String getTitle() {
+	public String getBlock() {
 		return (String) data.getProperty(PROP_TITLE);
 	}
 

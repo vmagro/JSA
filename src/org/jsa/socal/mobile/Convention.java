@@ -51,7 +51,12 @@ public class Convention {
 	public static ArrayList<Convention> getConventions() {
 		ArrayList<Convention> conventions = new ArrayList<Convention>();
 		Query q = new Query(KIND);
-		q.setFilter(new FilterPredicate(PROP_DATE, FilterOperator.GREATER_THAN_OR_EQUAL, Calendar.getInstance().getTimeInMillis()));
+		Calendar today = Calendar.getInstance();
+		today.set(Calendar.HOUR_OF_DAY, 0);
+		today.set(Calendar.MINUTE, 0);
+		today.set(Calendar.SECOND, 0);
+		today.set(Calendar.MILLISECOND, 0);
+		q.setFilter(new FilterPredicate(PROP_DATE, FilterOperator.GREATER_THAN_OR_EQUAL, today.getTimeInMillis()));
 		q.addSort(PROP_DATE, SortDirection.ASCENDING);
 		//q.addSort(PROP_TITLE, SortDirection.ASCENDING);
 		Iterable<Entity> entities = datastore.prepare(q).asIterable();

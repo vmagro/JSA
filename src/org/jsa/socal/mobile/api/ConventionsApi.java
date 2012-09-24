@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jsa.socal.mobile.Convention;
+import org.jsa.socal.mobile.Debate;
 
 import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
@@ -28,6 +29,18 @@ public class ConventionsApi extends HttpServlet {
 					json.put("id", c.getId());
 					json.put("title", c.getTitle());
 					json.put("loc", c.getLocation());
+					json.put("date", c.getDate().getTimeInMillis());
+					
+					JSONArray debatesArr = new JSONArray();
+					ArrayList<Debate> debates = c.getDebates();
+					for(Debate d : debates){
+						JSONObject debateJson = new JSONObject();
+						debateJson.put("block", d.getBlock());
+						debateJson.put("res", d.getResolution());
+						debatesArr.put(debateJson);
+					}
+					
+					json.put("debates", debatesArr);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

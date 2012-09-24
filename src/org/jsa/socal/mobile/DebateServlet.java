@@ -32,7 +32,7 @@ public class DebateServlet extends HttpServlet {
 		debate = Debate.getDebate(debateId);
 		if (debate != null) {
 			req.setAttribute("debate", debate);
-			req.setAttribute("title", debate.getTitle());
+			req.setAttribute("title", debate.getBlock());
 		}
 
 		UserService users = UserServiceFactory.getUserService();

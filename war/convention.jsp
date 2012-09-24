@@ -53,7 +53,7 @@
 					for (Debate d : debates) {
 				%>
 				<li><a href="/debate?id=<%=d.getId() %>" rel="external">
-						<h2><%=d.getTitle()%></h2>
+						<h2><%=d.getBlock()%></h2>
 						<p><%=d.getResolution()%></p>
 				</a></li>
 				<%
