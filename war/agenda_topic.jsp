@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="org.jsa.socal.mobile.Debate"%>
-<%@ page import="org.jsa.socal.mobile.Debate.Comment"%>
+<%@ page import="org.jsa.socal.mobile.AgendaTopic"%>
+<%@ page import="org.jsa.socal.mobile.AgendaTopic.Comment"%>
 <%@ page import="com.google.appengine.api.users.User"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -51,13 +51,13 @@
 <body>
 
 	<%
-		Debate debate = (Debate) request.getAttribute("debate");
+		AgendaTopic topic = (AgendaTopic) request.getAttribute("topic");
 	%>
 
 	<div data-role="page">
 
 		<div data-role="header" id="header">
-			<h1><%=debate.getBlock()%></h1>
+			<h1><%=topic.getBlock()%></h1>
 			<div data-role="navbar">
 				<ul data-role="navbar" id="menuList">
 					<li><a href="/" class="contentLink">Home</a></li>
@@ -69,13 +69,13 @@
 
 		<div data-role="content">
 			<h2>Resolution</h2>
-			<p><%=debate.getResolution() %></p>
+			<p><%=topic.getText()%></p>
 			<h3>Comments</h3>
 			<a href="#new-comment" data-role="button" data-rel="dialog">Leave
 				a comment</a> <br>
 			<ul data-role="listview" id="comments">
 				<%
-					ArrayList<Comment> comments = debate.getComments();
+					ArrayList<Comment> comments = topic.getComments();
 					for(Comment c : comments){
 				%>
 				<li cid=<%=c.getId() %> " class="comment">
@@ -94,7 +94,7 @@
 				var cid = $(this).attr("cid");
 				$.post(  
 			            "/debate",  
-			            {action: "delete-comment", id: <%=debate.getId()%>, comment: cid},
+			            {action: "delete-comment", id: <%=topic.getId()%>, comment: cid},
 			            function(responseText){  
 			                $("li[cid="+cid+"]").remove();
 			            }
@@ -130,6 +130,7 @@
 				  		name = response.name;
 						console.log('Good to see you, ' + response.name + '.');
 						$("#name").text(response.name);
+				       	$("#mustlogin").hide();
 				       	$("#mustlogin").remove();
 				       	$("#commentform").show();
 				     });
@@ -164,8 +165,8 @@
 						console.log(name);
 						var fauthor = name;
 						$.post(  
-					    	"/debate",
-					        {id: <%=debate.getId()%>, action : "add-comment", text: ftext, author: fauthor},
+					    	"/agenda",
+					        {id: <%=topic.getId()%>, action : "add-comment", text: ftext, author: fauthor},
 					        function(responseText){  
 					        	$('.ui-dialog').dialog('close');
 					        	window.location.href="<%=request.getAttribute("reqUri")%>";
