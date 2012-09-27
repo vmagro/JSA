@@ -14,13 +14,17 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-public class Debate {
+public class AgendaTopic {
 
-	public static final String KIND = "Debate";
+	public static final String KIND = "Agenda";
 
-	public static final String PROP_TITLE = "title";
-	public static final String PROP_RESOLUTION = "resolution";
-	public static final String PROP_CONVENTION_ID = "convention";
+	public static final String PROP_TITLE 			= "title";
+	public static final String PROP_TEXT 			= "text";
+	public static final String PROP_CONVENTION_ID 	= "convention";
+	public static final String PROP_START_TIME		= "start";
+	public static final String PROP_END_TIME		= "end";
+	public static final String PROP_ORDER 			= "order";
+	public static final String PROP_LOCATION		= "loc";
 
 	private Entity data;
 	private long id;
@@ -29,29 +33,29 @@ public class Debate {
 	private static DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
 
-	public Debate(Entity data) {
+	public AgendaTopic(Entity data) {
 		this.data = data;
 		this.id = data.getKey().getId();
 		this.conventionId = (Long) data.getProperty(PROP_CONVENTION_ID);
 	}
 
-	public static Debate getDebate(int id) {
+	public static AgendaTopic getAgendaTopic(int id) {
 		try {
 			Entity data = datastore.get(KeyFactory.createKey(KIND, id));
-			return new Debate(data);
+			return new AgendaTopic(data);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public Debate(Convention c) {
+	public AgendaTopic(Convention c) {
 		this.data = new Entity(KIND);
 		this.id = data.getKey().getId();
 		this.data.setProperty(PROP_CONVENTION_ID, c.getId());
 	}
 
-	public Debate() {
+	public AgendaTopic() {
 		this.data = new Entity(KIND);
 		this.id = data.getKey().getId();
 	}
@@ -66,7 +70,7 @@ public class Debate {
 
 		private static final String PROP_TEXT = "t";
 
-		public static final String PROP_DEBATE_ID = "i";
+		public static final String PROP_AGENDA_ID = "i";
 
 		private Entity data = null;
 
@@ -98,7 +102,7 @@ public class Debate {
 		}
 
 		public int getDebateId() {
-			return (Integer) data.getProperty(PROP_DEBATE_ID);
+			return (Integer) data.getProperty(PROP_AGENDA_ID);
 		}
 
 		public int getId() {
@@ -117,8 +121,8 @@ public class Debate {
 			data.setProperty(PROP_AUTHOR, value);
 		}
 
-		public void setDebateId(int value) {
-			data.setProperty(PROP_DEBATE_ID, value);
+		public void setTopicId(int value) {
+			data.setProperty(PROP_AGENDA_ID, value);
 		}
 
 		public void save() {
@@ -129,7 +133,7 @@ public class Debate {
 	public ArrayList<Comment> getComments() {
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		Query q = new Query(Comment.KIND);
-		q.setFilter(new FilterPredicate(Comment.PROP_DEBATE_ID,
+		q.setFilter(new FilterPredicate(Comment.PROP_AGENDA_ID,
 				FilterOperator.EQUAL, this.getId()));
 		q.addSort(Comment.PROP_DATE, SortDirection.DESCENDING);
 		Iterable<Entity> entities = datastore.prepare(q).asIterable();
@@ -143,7 +147,7 @@ public class Debate {
 		Comment c = new Comment();
 		c.setAuthor(author);
 		c.setText(text);
-		c.setDebateId((int) this.getId());
+		c.setTopicId((int) this.getId());
 		c.setDate(Calendar.getInstance(TimeZone
 				.getTimeZone("America/Los_Angeles")));
 		c.save();
@@ -157,20 +161,33 @@ public class Debate {
 		return (String) data.getProperty(PROP_TITLE);
 	}
 
-	public String getResolution() {
-		return (String) data.getProperty(PROP_RESOLUTION);
+	public String getText() {
+		return (String) data.getProperty(PROP_TEXT);
 	}
 
 	public void setTitle(String value) {
 		data.setProperty(PROP_TITLE, value);
 	}
 
-	public void setResolution(String value) {
-		data.setProperty(PROP_RESOLUTION, value);
+	public void setText(String value) {
+		data.setProperty(PROP_TEXT, value);
 	}
 
 	public void setConventionId(long value) {
 		data.setProperty(PROP_CONVENTION_ID, value);
+	}
+	
+	public void setTimes(String start, String end){
+		data.setProperty(PROP_START_TIME, start);
+		data.setProperty(PROP_END_TIME, end);
+	}
+	
+	public void setOrder(int order){
+		data.setProperty(PROP_ORDER, order);
+	}
+	
+	public void setLocation(String l){
+		data.setProperty(PROP_LOCATION, l);
 	}
 
 	public long getId() {
@@ -180,10 +197,27 @@ public class Debate {
 	public long getConventionId() {
 		return conventionId;
 	}
-
+	
+	public String getStartTime(){
+		return (String) data.getProperty(PROP_START_TIME);
+	}
+	
+	public String getEndTime(){
+		return (String) data.getProperty(PROP_END_TIME);
+	}
+	
+	public long getOrder(){
+		return (Long) data.getProperty(PROP_ORDER);
+	}
+	
+	public String getLocation(){
+		return (String) data.getProperty(PROP_LOCATION);
+	}
+	
 	public void save() {
 		datastore.put(data);
 	}
+	
 
 	public void delete() {
 		datastore.delete(data.getKey());

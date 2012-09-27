@@ -24,9 +24,9 @@ handlers:
   servlet: org.jsa.socal.mobile.ConventionAdminServlet
   name: Convention Admin
   
-- url: /admin/debates
-  servlet: org.jsa.socal.mobile.DebateAdminServlet
-  name: Debate Admin
+- url: /admin/agenda
+  servlet: org.jsa.socal.mobile.AgendaAdminServlet
+  name: Agenda Admin
   
 - url: /conventions
   servlet: org.jsa.socal.mobile.ConventionsServlet
@@ -36,16 +36,16 @@ handlers:
   servlet: org.jsa.socal.mobile.ConventionServlet
   name: Convention
   
-- url: /debate
-  servlet: org.jsa.socal.mobile.DebateServlet
-  name: Debate
+- url: /agenda
+  servlet: org.jsa.socal.mobile.AgendaTopicServlet
+  name: AgendaTopic
 
 - url: /links
   jsp: /links.jsp
   
-- url: /api/debate
-  servlet: org.jsa.socal.mobile.api.DebateApi
-  name: Debate Api
+- url: /api/agenda
+  servlet: org.jsa.socal.mobile.api.AgendaTopicApi
+  name: AgendaTopic Api
   
 - url: /api/conventions
   servlet: org.jsa.socal.mobile.api.ConventionsApi
@@ -55,7 +55,5 @@ admin_console:
   pages:
   - name: Conventions
     url: /admin/conventions
-  - name: Debates
-    url: /admin/debates
     
     

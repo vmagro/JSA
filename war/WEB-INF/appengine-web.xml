@@ -19,6 +19,5 @@
   <warmup-requests-enabled>false</warmup-requests-enabled>
   <admin-console>
     <page name='Conventions' url='/admin/conventions'/>
-    <page name='Debates' url='/admin/debates'/>
   </admin-console>
 </appengine-web-app>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="org.jsa.socal.mobile.Debate"%>
+<%@ page import="org.jsa.socal.mobile.AgendaTopic"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,8 +23,8 @@
 <body>
 
 	<%
-		ArrayList<Debate> debates = (ArrayList<Debate>) request
-				.getAttribute("debates");
+		ArrayList<AgendaTopic> agenda = (ArrayList<AgendaTopic>) request
+				.getAttribute("agenda");
 	%>
 
 	<div data-role="page">
@@ -46,15 +46,18 @@
 			<h4><%=request.getAttribute("date") %></h4>
 			<p><%=request.getAttribute("location") %></p>
 			<br>
-			<% if(debates.size() > 0){ %>
-			<h4>Debates</h4>
+			<% if(agenda.size() > 0){ %>
+			<h4>Agenda</h4>
 			<ul data-role="listview">
 				<%
-					for (Debate d : debates) {
+					for (AgendaTopic t : agenda) {
 				%>
-				<li><a href="/debate?id=<%=d.getId() %>" rel="external">
-						<h2><%=d.getBlock()%></h2>
-						<p><%=d.getResolution()%></p>
+				<li><a href="/agenda?id=<%=t.getId() %>" rel="external">
+						<h2><%=t.getBlock()%></h2>
+						<h4><%=t.getStartTime()%>-<%=t.getEndTime() %></h4>
+						<p><strong><%=t.getLocation()%></strong></p>
+						<br>
+						<p><%=t.getText() %></p>
 				</a></li>
 				<%
 					}

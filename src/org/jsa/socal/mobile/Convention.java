@@ -56,9 +56,9 @@ public class Convention {
 		today.set(Calendar.MINUTE, 0);
 		today.set(Calendar.SECOND, 0);
 		today.set(Calendar.MILLISECOND, 0);
-		q.setFilter(new FilterPredicate(PROP_DATE, FilterOperator.GREATER_THAN_OR_EQUAL, today.getTimeInMillis()));
+		q.setFilter(new FilterPredicate(PROP_DATE,
+				FilterOperator.GREATER_THAN_OR_EQUAL, today.getTimeInMillis()));
 		q.addSort(PROP_DATE, SortDirection.ASCENDING);
-		//q.addSort(PROP_TITLE, SortDirection.ASCENDING);
 		Iterable<Entity> entities = datastore.prepare(q).asIterable();
 		for (Entity e : entities)
 			conventions.add(new Convention(e));
@@ -99,16 +99,22 @@ public class Convention {
 		return id;
 	}
 
-	public ArrayList<Debate> getDebates() {
-		ArrayList<Debate> debates = new ArrayList<Debate>();
-		Query q = new Query(Debate.KIND);
-		q.setFilter(new FilterPredicate(Debate.PROP_CONVENTION_ID,
-				FilterOperator.EQUAL, getId()));
+	public ArrayList<AgendaTopic> getAgenda() {
+		ArrayList<AgendaTopic> agenda = new ArrayList<AgendaTopic>();
+		Query q = new Query(AgendaTopic.KIND);
+		q.setFilter(new FilterPredicate(AgendaTopic.PROP_CONVENTION_ID, FilterOperator.EQUAL, getId()));
+//		q.setFilter(CompositeFilterOperator.and(
+//				new FilterPredicate(AgendaTopic.PROP_CONVENTION_ID,
+//						FilterOperator.EQUAL, getId()),
+//				new FilterPredicate(AgendaTopic.PROP_END_TIME,
+//						FilterOperator.GREATER_THAN_OR_EQUAL, System
+//								.currentTimeMillis())));
+		q.addSort(AgendaTopic.PROP_ORDER, SortDirection.ASCENDING);
 		Iterable<Entity> entities = datastore.prepare(q).asIterable();
 		for (Entity e : entities) {
-			debates.add(new Debate(e));
+			agenda.add(new AgendaTopic(e));
 		}
-		return debates;
+		return agenda;
 	}
 
 	public void saveAsync() {
@@ -118,8 +124,8 @@ public class Convention {
 	public void save() {
 		datastore.put(data);
 	}
-	
-	public void delete(){
+
+	public void delete() {
 		datastore.delete(data.getKey());
 	}
 

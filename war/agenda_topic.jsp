@@ -68,8 +68,11 @@
 		</div>
 
 		<div data-role="content">
-			<h2>Resolution</h2>
+			<h2>Details</h2>
+			<h3><%=topic.getStartTime() %>-<%=topic.getEndTime() %></h3>
+			<h4><%=topic.getLocation() %></h4>
 			<p><%=topic.getText()%></p>
+			
 			<h3>Comments</h3>
 			<a href="#new-comment" data-role="button" data-rel="dialog">Leave
 				a comment</a> <br>
@@ -93,7 +96,7 @@
 			$(".deleteComment").click(function(){
 				var cid = $(this).attr("cid");
 				$.post(  
-			            "/debate",  
+			            "/agenda",  
 			            {action: "delete-comment", id: <%=topic.getId()%>, comment: cid},
 			            function(responseText){  
 			                $("li[cid="+cid+"]").remove();

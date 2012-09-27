@@ -51,8 +51,8 @@
 		
 	</form>
 	
-	<a href="/admin/debates?convention=<%=c.getId()%>" data-role="button">Debate
-		Admin</a>
+	<a href="/admin/agenda?convention=<%=c.getId()%>" data-role="button">Agenda Admin</a>
+		
 	<button id="deleteButton<%=c.getId()%>">Delete</button>
 	<script type="text/javascript">
 		$("#form<%=c.getId()%>").ajaxForm
@@ -79,12 +79,10 @@
 				<td>Title</td>
 				<td><input type="text" name="title" /></td>
 			</tr>
-			<br>
 			<tr>
 				<td>Location</td>
 				<td><input type="text" name="location" /></td>
 			</tr>
-			<br>
 			<tr>
 				<td>Date</td>
 				<td><input name="date" class="date" /></td>

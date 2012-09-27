@@ -12,7 +12,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 @SuppressWarnings("serial")
-public class DebateServlet extends HttpServlet {
+public class AgendaTopicServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
@@ -21,18 +21,18 @@ public class DebateServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		Debate debate = null;
-		int debateId = 0;
+		AgendaTopic topic = null;
+		int topicId = 0;
 		if (req.getParameter("id") == null) {
-			debateId = (Integer) req.getSession().getAttribute("debateId");
+			topicId = (Integer) req.getSession().getAttribute("topicId");
 		}
 		else
-			debateId = Integer.parseInt(req.getParameter("id"));
-		req.getSession().setAttribute("debateId", debateId);
-		debate = Debate.getDebate(debateId);
-		if (debate != null) {
-			req.setAttribute("debate", debate);
-			req.setAttribute("title", debate.getBlock());
+			topicId = Integer.parseInt(req.getParameter("id"));
+		req.getSession().setAttribute("topicId", topicId);
+		topic = AgendaTopic.getAgendaTopic(topicId);
+		if (topic != null) {
+			req.setAttribute("topic", topic);
+			req.setAttribute("title", topic.getBlock());
 		}
 
 		UserService users = UserServiceFactory.getUserService();
@@ -48,21 +48,21 @@ public class DebateServlet extends HttpServlet {
 		if (action == null)
 			action = "";
 		if (action.equalsIgnoreCase("add-comment")) {
-			debate.addComment(req.getParameter("author"),
+			topic.addComment(req.getParameter("author"),
 					req.getParameter("text"));
 			resp.setStatus(200);
 			return;
 		} else if (action.equalsIgnoreCase("delete-comment")) {
 			if (users.isUserAdmin()) {
 				int commentId = Integer.parseInt(req.getParameter("comment"));
-				debate.removeComment(commentId);
+				topic.removeComment(commentId);
 			}
 			return;
 		} else {
 			if (users.isUserLoggedIn()) {
 				req.setAttribute("admin", users.isUserAdmin());
 			}
-			jsp = "debate";
+			jsp = "agenda_topic";
 		}
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(
 				"/" + jsp + ".jsp");

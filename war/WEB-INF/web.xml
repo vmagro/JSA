@@ -5,8 +5,8 @@
     <servlet-class>org.jsa.socal.mobile.ConventionAdminServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Debate Admin</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.DebateAdminServlet</servlet-class>
+    <servlet-name>Agenda Admin</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.AgendaAdminServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Conventions</servlet-name>
@@ -17,16 +17,16 @@
     <servlet-class>org.jsa.socal.mobile.ConventionServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Debate</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.DebateServlet</servlet-class>
+    <servlet-name>AgendaTopic</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.AgendaTopicServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>/links.jsp</servlet-name>
     <jsp-file>/links.jsp</jsp-file>
   </servlet>
   <servlet>
-    <servlet-name>Debate Api</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.api.DebateApi</servlet-class>
+    <servlet-name>AgendaTopic Api</servlet-name>
+    <servlet-class>org.jsa.socal.mobile.api.AgendaTopicApi</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Conventions Api</servlet-name>
@@ -46,8 +46,8 @@
     <url-pattern>/admin/conventions</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Debate Admin</servlet-name>
-    <url-pattern>/admin/debates</url-pattern>
+    <servlet-name>Agenda Admin</servlet-name>
+    <url-pattern>/admin/agenda</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Conventions</servlet-name>
@@ -58,16 +58,16 @@
     <url-pattern>/convention</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Debate</servlet-name>
-    <url-pattern>/debate</url-pattern>
+    <servlet-name>AgendaTopic</servlet-name>
+    <url-pattern>/agenda</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>/links.jsp</servlet-name>
     <url-pattern>/links</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Debate Api</servlet-name>
-    <url-pattern>/api/debate</url-pattern>
+    <servlet-name>AgendaTopic Api</servlet-name>
+    <url-pattern>/api/agenda</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Conventions Api</servlet-name>

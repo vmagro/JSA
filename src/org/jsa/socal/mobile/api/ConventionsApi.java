@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jsa.socal.mobile.AgendaTopic;
 import org.jsa.socal.mobile.Convention;
-import org.jsa.socal.mobile.Debate;
 
 import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
@@ -31,16 +31,19 @@ public class ConventionsApi extends HttpServlet {
 					json.put("loc", c.getLocation());
 					json.put("date", c.getDate().getTimeInMillis());
 					
-					JSONArray debatesArr = new JSONArray();
-					ArrayList<Debate> debates = c.getDebates();
-					for(Debate d : debates){
-						JSONObject debateJson = new JSONObject();
-						debateJson.put("block", d.getBlock());
-						debateJson.put("res", d.getResolution());
-						debatesArr.put(debateJson);
+					JSONArray agendaArr = new JSONArray();
+					ArrayList<AgendaTopic> agenda = c.getAgenda();
+					for(AgendaTopic t : agenda){
+						JSONObject agendaJson = new JSONObject();
+						agendaJson.put("block", t.getBlock());
+						agendaJson.put("text", t.getText());
+						agendaJson.put("loc", t.getLocation());
+						agendaJson.put("time", t.getStartTime()+"-"+t.getEndTime());
+						agendaJson.put("id", t.getId());
+						agendaArr.put(agendaJson);
 					}
 					
-					json.put("debates", debatesArr);
+					json.put("agenda", agendaArr);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
