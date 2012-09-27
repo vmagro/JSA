@@ -1,5 +1,5 @@
 application: socal-jsa
-version: r1
+version: r2
 runtime: java
 
 sessions_enabled: true
