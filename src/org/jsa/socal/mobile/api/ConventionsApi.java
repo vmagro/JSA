@@ -29,7 +29,7 @@ public class ConventionsApi extends HttpServlet {
 					json.put("id", c.getId());
 					json.put("title", c.getTitle());
 					json.put("loc", c.getLocation());
-					json.put("date", c.getDate().getTimeInMillis());
+					json.put("date", c.getDateString());
 					
 					JSONArray agendaArr = new JSONArray();
 					ArrayList<AgendaTopic> agenda = c.getAgenda();
