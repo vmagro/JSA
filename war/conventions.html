@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" manifest="/cache.manifest">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Conventions</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="/images/iphone_icon.png" />
+    <link rel="apple-touch-startup-image" href="/images/iphone_splash.png" />
+    <link rel="stylesheet" href="/css/jquery.mobile-1.1.1.min.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.mobile-1.1.1.min.js"></script>
+    <link rel="stylesheet" href="/css/redwhiteandblue/red-white-and-blue.min.css" />
+    <script type="text/javascript" src="/js/android.js"></script>
+
+</head>
+
+<body>
+
+    <div data-role="page" id="conventionsPage">
+
+        <script type="text/javascript">
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '434281589955303', // App ID
+                    status: true, // check login status
+                    cookie: true, // enable cookies to allow the server to access the session
+                    xfbml: true  // parse XFBML
+                });
+
+                // Additional initialization code here
+            };
+
+            // Load the SDK Asynchronously
+            (function (d) {
+                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement('script'); js.id = id; js.async = true;
+                js.src = "//connect.facebook.net/en_US/all.js";
+                ref.parentNode.insertBefore(js, ref);
+            }(document));
+        </script>
+
+        <script type="text/javascript">
+
+            var BASE = "http://localhost:8888/api/";
+
+            var conventions;
+
+            $.getJSON(BASE + "conventions", function (data) {
+                $("#loading").hide();
+                conventions = data;
+                for (var i = 0; i < data.length; i++) {
+                    var li = $('<li class="conventionLi">');
+                    var a = $('<a href="#convention">');
+                    li.attr("id", data[i]["id"]);
+                    li.attr("num", i);
+                    a.append('<h3>' + data[i]["title"] + "</h3>");
+                    a.append('<h4>' + data[i]["loc"] + "</h4>");
+                    a.append('<p>' + data[i]["date"] + "</p>");
+                    li.append(a);
+                    $("#conventions").append(li);
+                }
+
+                $(".conventionLi").click(function () {
+                    var num = $(this).attr("num");
+                    var id = $(this).attr("id");
+                    var page = $("#convention");
+                    page.find(".conventionTitle").html(conventions[num]["title"]);
+                    page.find("#conventionDate").html(conventions[num]["date"]);
+                    page.find("#conventionLocation").html(conventions[num]["loc"]);
+
+                    var agenda = conventions[num]["agenda"];
+                    $("#agenda").find(".agendaLi").remove();
+
+                    if (agenda.length < 1) {
+                        page.find("#agendaTitle").remove();
+                    }
+
+                    for (var i = 0; i < agenda.length; i++) {
+                        var item = agenda[i];
+                        var li = $('<li class="agendaLi">');
+                        li.attr("convention", num);
+                        li.attr("num", i);
+                        li.attr("id", item["id"]);
+                        var a = $("<a href=#agenda>");
+                        a.append("<h2>" + item["block"] + "</h2>");
+                        a.append("<h4>" + item["time"] + "</h4>");
+                        a.append("<p><strong>" + item["loc"] + "</strong></p>");
+                        a.append("<p>" + item["text"] + "</p>");
+                        li.append(a);
+                        $("#agenda").append(li);
+                    }
+
+                    $(".agendaLi").click(function () {
+                        var convention = $(this).attr("convention");
+                        var num = $(this).attr("num");
+                        var id = $(this).attr("id");
+                        var item = conventions[convention]["agenda"][num];
+                        var page = $("#agendapage");
+                        page.find("#topicBlock").html(item["block"]);
+                        page.find("#topicTime").html(item["time"]);
+                        page.find("#topicLocation").html(item["loc"]);
+                        page.find("#topicText").html(item["text"]);
+
+                        $.getJSON(BASE + "agenda?id=" + id, function (data) {
+                            var comments = page.find("#comments")
+                            for (var i = 0; i < data.length; i++) {
+                                var li = $("<li>");
+                                li.append("<h5>" + data[i]["name"] + "</h5>");
+                                li.append("<p><strong>" + data[i]["time"] + "</strong></p>");
+                                li.append("<p>" + data[i]["text"] + "</p>");
+                                comments.append(li);
+                            }
+                            comments.listview("refresh");
+
+                            //do facebook stuff
+                            var name = "";
+                            FB.login(function (response) {
+                                if (response.authResponse) {
+                                    FB.api('/me', function (response) {
+                                        name = response.name;
+                                        $("#name").text(response.name);
+                                        $("#mustlogin").hide();
+                                        $("#mustlogin").remove();
+                                        $("#commentform").show();
+                                    });
+                                } else {
+                                }
+                            });
+
+                            $("#submitcomment").unbind("click");
+                            $("#submitcomment").click(function () {
+                                var ftext = $("textarea[name='text']").val();
+                                var fauthor = name;
+                                $.post(
+                                    "/agenda",
+                                    { id: id, action: "add-comment", text: ftext, author: fauthor },
+                                    function (responseText) {
+                                        $('.ui-dialog').dialog('close');
+                                    }
+                                );
+                                return false;
+                            })
+
+                        });
+
+
+
+                    });
+
+                    $("#agenda").listview("refresh"); //put this at the end in case it throws an exception
+                });
+
+                $("#conventions").listview();
+                $("#conventions").listview("refresh");
+            }).error(function () {
+                console.log("error");
+                $("#loading").html("Error...");
+            });
+        </script>
+
+        <div data-role="header" id="header">
+            <h1>Convention</h1>
+            <div data-role="navbar">
+                <ul data-role="navbar" id="menuList">
+                    <li><a href="index.html" class="contentLink">Home</a></li>
+                    <li><a href="#" class="contentLink ui-btn-active ">Conferences</a></li>
+                    <li><a href="links.html" class="contentLink">Links</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-role="content">
+            <h2 id="loading">Loading...</h2>
+            <ul id="conventions" data-role="listview" class="hidden"></ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="convention" data-url="convention">
+        <div data-role="header">
+            <h1 class="conventionTitle"></h1>
+            <div data-role="navbar">
+                <ul data-role="navbar">
+                    <li><a href="index.html" class="contentLink">Home</a></li>
+                    <li><a href="conventions.html" class="contentLink ui-btn-active" data-ajax="false">Conferences</a></li>
+                    <li><a href="links.html" class="contentLink">Links</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <h2 class="conventionTitle"></h2>
+            <h4 id="conventionDate"></h4>
+            <p id="conventionLocation"></p>
+            <h4 id="agendaTitle">Agenda</h4>
+            <ul data-role="listview" id="agenda"></ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="agendapage" data-url="agenda">
+        <div data-role="header">
+            <h1 id="topicBlock"></h1>
+            <div data-role="navbar">
+                <ul data-role="navbar">
+                    <li><a href="index.html" class="contentLink">Home</a></li>
+                    <li><a href="conventions.html" class="contentLink ui-btn-active" data-ajax="false">Conferences</a></li>
+                    <li><a href="links.html" class="contentLink">Links</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <h2>Details</h2>
+            <h3 id="topicTime"></h3>
+            <h4 id="topicLocation"></h4>
+            <p id="topicText"></p>
+            <h3>Comments</h3>
+            <a href="#new-comment" data-role="button" data-rel="dialog">Leave
+				a comment</a>
+            <br>
+            <ul data-role="listview" id="comments"></ul>
+        </div>
+    </div>
+
+    <!-- new comment form -->
+    <div data-role="page" data-url="new-comment">
+        <div data-role="header">
+            <h1>New Comment</h1>
+        </div>
+
+        <div data-role="content">
+
+            <p id="mustlogin">
+                You must login with Facebook to submit a
+				comment
+            </p>
+
+
+            <div id="commentform" style="display: none">
+                <p>
+                    Your name (<span id="name"></span>) will be recorded along with
+					your comment. Please keep your comments appropriate. Thank you for
+					your participation.
+                </p>
+
+                <div>
+                    <textarea name="text" cols="40" rows="20"></textarea>
+                    <div id="submitcomment" data-role="button">Submit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

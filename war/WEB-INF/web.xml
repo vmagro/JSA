@@ -9,22 +9,6 @@
     <servlet-class>org.jsa.socal.mobile.AgendaAdminServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Conventions</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.ConventionsServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>Convention</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.ConventionServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>AgendaTopic</servlet-name>
-    <servlet-class>org.jsa.socal.mobile.AgendaTopicServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>/links.jsp</servlet-name>
-    <jsp-file>/links.jsp</jsp-file>
-  </servlet>
-  <servlet>
     <servlet-name>AgendaTopic Api</servlet-name>
     <servlet-class>org.jsa.socal.mobile.api.AgendaTopicApi</servlet-class>
   </servlet>
@@ -50,22 +34,6 @@
     <url-pattern>/admin/agenda</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Conventions</servlet-name>
-    <url-pattern>/conventions</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Convention</servlet-name>
-    <url-pattern>/convention</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>AgendaTopic</servlet-name>
-    <url-pattern>/agenda</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>/links.jsp</servlet-name>
-    <url-pattern>/links</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>AgendaTopic Api</servlet-name>
     <url-pattern>/api/agenda</url-pattern>
   </servlet-mapping>
@@ -76,4 +44,10 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+<mime-mapping>
+	<extension>manifest</extension>
+	<mime-type>text/cache-manifest</mime-type>
+</mime-mapping>
+  
+  
 </web-app>

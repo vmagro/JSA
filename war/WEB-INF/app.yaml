@@ -8,11 +8,13 @@ welcome_files:
     - index.html
 
 static_files:
+    - include: /**.html
     - include: /**.png
     - include: /**.gif
     - include: /**.css
     - include: /**.js
     - include: /**.ico
+    - include: /cache.manifest
       expiration: 1d 0h
       
 handlers:
@@ -28,21 +30,6 @@ handlers:
   servlet: org.jsa.socal.mobile.AgendaAdminServlet
   name: Agenda Admin
   
-- url: /conventions
-  servlet: org.jsa.socal.mobile.ConventionsServlet
-  name: Conventions
-  
-- url: /convention
-  servlet: org.jsa.socal.mobile.ConventionServlet
-  name: Convention
-  
-- url: /agenda
-  servlet: org.jsa.socal.mobile.AgendaTopicServlet
-  name: AgendaTopic
-
-- url: /links
-  jsp: /links.jsp
-  
 - url: /api/agenda
   servlet: org.jsa.socal.mobile.api.AgendaTopicApi
   name: AgendaTopic Api
@@ -55,5 +42,11 @@ admin_console:
   pages:
   - name: Conventions
     url: /admin/conventions
+
+web_xml: |
+  <mime-mapping>
+  	<extension>manifest</extension>
+  	<mime-type>text/cache-manifest</mime-type>
+  </mime-mapping>
     
     
