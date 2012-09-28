@@ -1,8 +1,8 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>JSA</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
@@ -19,6 +19,7 @@
     <script type="text/javascript">
 
         var conventions;
+        
 
         $.getJSON("http://localhost:8888/api/conventions", function (data) {
             conventions = data;
@@ -37,15 +38,28 @@
 
             $(".conventionLi").click(function () {
                 var num = $(this).attr("num");
+                console.log(conventions[num]);
                 var id = $(this).attr("id");
                 var page = $("#convention");
                 page.find("#conventionTitle").html(conventions[num]["title"]);
                 page.find("#conventionDate").html(conventions[num]["date"]);
                 page.find("#conventionLocation").html(conventions[num]["loc"]);
-
-                $.getJSON("http://localhost:8888/api/agenda?id="+id, function(data){
-
-                });
+                
+                var agenda = conventions[num]["agenda"];
+                for(var i=0; i<agenda.length; i++){
+                	var item = agenda[i];
+                	var li = $("<li>");
+                	var a = $("<a>");
+                	a.append("<h2>"+item["block"]+"</h2>");
+                	a.append("<h4>"+item["time"]+"</h4>");
+                	a.append("<p><strong>"+item["loc"]+"</strong></p>");
+                	a.append("<p>"+item["text"]+"</p>");
+                	li.append(a);
+                	console.log(li);
+                	$("#agenda").append(li);
+                }
+                $("#agenda").listview();
+                $("#agenda").listview("refresh");
             });
 
             $("#conventions").listview();
@@ -60,7 +74,7 @@
 <body>
     <div data-role="page">
         <div data-role="content">
-            <ul id="conventions" data-role="listview" class="hidden" />
+            <ul id="conventions" data-role="listview" class="hidden" ></ul>
         </div>
     </div>
 
@@ -69,7 +83,7 @@
             <h2 id="conventionTitle"></h2>
             <h4 id="conventionDate"></h4>
             <p id="conventionLocation"></p>
-            <ul data-role="listview" id="comments"></ul>
+            <ul data-role="listview" id="agenda" class="hidden"></ul>
         </div>
     </div>
 
