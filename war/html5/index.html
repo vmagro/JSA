@@ -1,0 +1,78 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+    <!-- !CSS -->
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css" />
+    <link rel="stylesheet" href="css/redwhiteandblue/red-white-and-blue.min.css" />
+
+    <script src="js/jquery-1.8.1.js"></script>
+    <script src="js/jquery.mobile-1.1.1.min.js"></script>
+
+    <script type="text/javascript">
+
+        var conventions;
+
+        $.getJSON("http://localhost:8888/api/conventions", function (data) {
+            conventions = data;
+            for (var i = 0; i < data.length; i++) {
+                var li = $('<li class="conventionLi">');
+                var a = $('<a href="#convention">');
+                li.attr("id", data[i]["id"]);
+                li.attr("num", i);
+                a.append('<h3>' + data[i]["title"] + "</h3>");
+                a.append('<h4>' + data[i]["loc"] + "</h4>");
+                a.append('<p>' + data[i]["date"] + "</p>");
+                li.append(a);
+                $("#conventions").append(li);
+
+            }
+
+            $(".conventionLi").click(function () {
+                var num = $(this).attr("num");
+                var id = $(this).attr("id");
+                var page = $("#convention");
+                page.find("#conventionTitle").html(conventions[num]["title"]);
+                page.find("#conventionDate").html(conventions[num]["date"]);
+                page.find("#conventionLocation").html(conventions[num]["loc"]);
+
+                $.getJSON("http://localhost:8888/api/agenda?id="+id, function(data){
+
+                });
+            });
+
+            $("#conventions").listview();
+            $("#conventions").listview("refresh");
+        });
+
+
+    </script>
+
+</head>
+
+<body>
+    <div data-role="page">
+        <div data-role="content">
+            <ul id="conventions" data-role="listview" class="hidden" />
+        </div>
+    </div>
+
+    <div data-role="page" id="convention" data-url="convention">
+        <div data-role="content">
+            <h2 id="conventionTitle"></h2>
+            <h4 id="conventionDate"></h4>
+            <p id="conventionLocation"></p>
+            <ul data-role="listview" id="comments"></ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
