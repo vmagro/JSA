@@ -10,7 +10,7 @@
 <title>SoCal JSA Admin</title>
 <link type="text/css" href="/css/smoothness/jquery-ui-1.8.23.custom.css"
 	rel="Stylesheet" />
-<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.8.23.custom.min.js"></script>
 </head>
 <body>
