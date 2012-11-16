@@ -40,6 +40,7 @@ public class ConventionsApi extends HttpServlet {
 						agendaJson.put("loc", t.getLocation());
 						agendaJson.put("time", t.getStartTime()+"-"+t.getEndTime());
 						agendaJson.put("id", t.getId());
+						agendaJson.put("bstspkr", t.hasBestSpeakerAward());
 						agendaArr.put(agendaJson);
 					}
 					

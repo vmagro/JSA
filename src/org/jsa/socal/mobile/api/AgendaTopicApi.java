@@ -16,14 +16,16 @@ import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 @SuppressWarnings("serial")
 public class AgendaTopicApi extends HttpServlet {
-	
+
 	// GET is used to retrieve info about the debate
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
-		
+
 		JSONArray json = new JSONArray();
-		ArrayList<Comment> comments = AgendaTopic.getAgendaTopic(id).getComments();
-		for(Comment c : comments){
+		ArrayList<Comment> comments = AgendaTopic.getAgendaTopic(id)
+				.getComments();
+		for (Comment c : comments) {
 			try {
 				JSONObject j = new JSONObject();
 				j.put("name", c.getAuthor());
@@ -34,12 +36,13 @@ public class AgendaTopicApi extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		resp.getWriter().println(json);
 	}
-	
+
 	// POST is used to submit a comment
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
 		String name = req.getParameter("name");
 		String text = req.getParameter("text");
 		int id = Integer.parseInt(req.getParameter("id"));

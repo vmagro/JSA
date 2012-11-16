@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -35,7 +36,6 @@ public class Convention {
 			ex.printStackTrace();
 			return null;
 		}
-
 	}
 
 	public Convention(Entity entity) {
@@ -103,12 +103,20 @@ public class Convention {
 		ArrayList<AgendaTopic> agenda = new ArrayList<AgendaTopic>();
 		Query q = new Query(AgendaTopic.KIND);
 		q.setFilter(new FilterPredicate(AgendaTopic.PROP_CONVENTION_ID, FilterOperator.EQUAL, getId()));
-//		q.setFilter(CompositeFilterOperator.and(
-//				new FilterPredicate(AgendaTopic.PROP_CONVENTION_ID,
-//						FilterOperator.EQUAL, getId()),
-//				new FilterPredicate(AgendaTopic.PROP_END_TIME,
-//						FilterOperator.GREATER_THAN_OR_EQUAL, System
-//								.currentTimeMillis())));
+		q.addSort(AgendaTopic.PROP_ORDER, SortDirection.ASCENDING);
+		Iterable<Entity> entities = datastore.prepare(q).asIterable();
+		for (Entity e : entities) {
+			agenda.add(new AgendaTopic(e));
+		}
+		return agenda;
+	}
+	
+	public ArrayList<AgendaTopic> getTopicsByBlock(String block){
+		ArrayList<AgendaTopic> agenda = new ArrayList<AgendaTopic>();
+		Query q = new Query(AgendaTopic.KIND);
+		q.setFilter(CompositeFilterOperator.and(new FilterPredicate(AgendaTopic.PROP_CONVENTION_ID, FilterOperator.EQUAL, getId()),
+				new FilterPredicate(AgendaTopic.PROP_TITLE, FilterOperator.EQUAL, block)));
+		
 		q.addSort(AgendaTopic.PROP_ORDER, SortDirection.ASCENDING);
 		Iterable<Entity> entities = datastore.prepare(q).asIterable();
 		for (Entity e : entities) {

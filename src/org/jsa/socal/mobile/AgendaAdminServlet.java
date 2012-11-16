@@ -49,10 +49,6 @@ public class AgendaAdminServlet extends HttpServlet {
 			if(c != null){
 				req.setAttribute("agenda", c.getAgenda());
 				req.setAttribute("convention", c);
-				System.out.println("length: "+c.getAgenda().size());
-				for(AgendaTopic t : c.getAgenda()){
-					System.out.println(t);
-				}
 			}
 		}
 		

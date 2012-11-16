@@ -25,6 +25,7 @@ public class AgendaTopic {
 	public static final String PROP_END_TIME		= "end";
 	public static final String PROP_ORDER 			= "order";
 	public static final String PROP_LOCATION		= "loc";
+	public static final String PROP_NO_BEST_SPEAKER = "nobstspkr";
 
 	private Entity data;
 	private long id;
@@ -189,6 +190,10 @@ public class AgendaTopic {
 	public void setLocation(String l){
 		data.setProperty(PROP_LOCATION, l);
 	}
+	
+	public void setNoBestSpeaker(){
+		data.setProperty(PROP_NO_BEST_SPEAKER, true);
+	}
 
 	public long getId() {
 		return id;
@@ -214,10 +219,15 @@ public class AgendaTopic {
 		return (String) data.getProperty(PROP_LOCATION);
 	}
 	
+	public boolean hasBestSpeakerAward() {
+		if((Boolean) data.getProperty(PROP_NO_BEST_SPEAKER))
+			return false;
+		return true;
+	}
+	
 	public void save() {
 		datastore.put(data);
 	}
-	
 
 	public void delete() {
 		datastore.delete(data.getKey());

@@ -38,6 +38,14 @@ handlers:
   servlet: org.jsa.socal.mobile.api.ConventionsApi
   name: Conventions Api
   
+- url: /api/vote
+  servlet: org.jsa.socal.mobile.VoteServlet
+  name: Vote
+  
+- url: /vote
+  servlet: org.jsa.socal.mobile.VoteServlet
+  name: Vote
+  
 admin_console:
   pages:
   - name: Conventions
