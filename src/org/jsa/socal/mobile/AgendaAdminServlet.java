@@ -30,6 +30,7 @@ public class AgendaAdminServlet extends HttpServlet {
 			else
 				topic = AgendaTopic.getAgendaTopic(agendaId); //get existing topic
 			topic.setText(req.getParameter("text"));
+			topic.setLongText(req.getParameter("longtext"));
 			topic.setTitle(req.getParameter("title"));
 			topic.setConventionId(Long.parseLong(req.getParameter("convention")));
 			topic.setTimes(req.getParameter("start"), req.getParameter("end"));

@@ -18,13 +18,14 @@ public class AgendaTopic {
 
 	public static final String KIND = "Agenda";
 
-	public static final String PROP_TITLE 			= "title";
-	public static final String PROP_TEXT 			= "text";
-	public static final String PROP_CONVENTION_ID 	= "convention";
-	public static final String PROP_START_TIME		= "start";
-	public static final String PROP_END_TIME		= "end";
-	public static final String PROP_ORDER 			= "order";
-	public static final String PROP_LOCATION		= "loc";
+	public static final String PROP_TITLE = "title";
+	public static final String PROP_TEXT = "text";
+	public static final String PROP_LONG_TEXT = "longtext";
+	public static final String PROP_CONVENTION_ID = "convention";
+	public static final String PROP_START_TIME = "start";
+	public static final String PROP_END_TIME = "end";
+	public static final String PROP_ORDER = "order";
+	public static final String PROP_LOCATION = "loc";
 	public static final String PROP_NO_BEST_SPEAKER = "nobstspkr";
 
 	private Entity data;
@@ -166,6 +167,10 @@ public class AgendaTopic {
 		return (String) data.getProperty(PROP_TEXT);
 	}
 
+	public String getLongText() {
+		return (String) data.getProperty(PROP_LONG_TEXT);
+	}
+
 	public void setTitle(String value) {
 		data.setProperty(PROP_TITLE, value);
 	}
@@ -174,24 +179,28 @@ public class AgendaTopic {
 		data.setProperty(PROP_TEXT, value);
 	}
 
+	public void setLongText(String value) {
+		data.setProperty(PROP_LONG_TEXT, value);
+	}
+
 	public void setConventionId(long value) {
 		data.setProperty(PROP_CONVENTION_ID, value);
 	}
-	
-	public void setTimes(String start, String end){
+
+	public void setTimes(String start, String end) {
 		data.setProperty(PROP_START_TIME, start);
 		data.setProperty(PROP_END_TIME, end);
 	}
-	
-	public void setOrder(int order){
+
+	public void setOrder(int order) {
 		data.setProperty(PROP_ORDER, order);
 	}
-	
-	public void setLocation(String l){
+
+	public void setLocation(String l) {
 		data.setProperty(PROP_LOCATION, l);
 	}
-	
-	public void setNoBestSpeaker(){
+
+	public void setNoBestSpeaker() {
 		data.setProperty(PROP_NO_BEST_SPEAKER, true);
 	}
 
@@ -202,29 +211,27 @@ public class AgendaTopic {
 	public long getConventionId() {
 		return conventionId;
 	}
-	
-	public String getStartTime(){
+
+	public String getStartTime() {
 		return (String) data.getProperty(PROP_START_TIME);
 	}
-	
-	public String getEndTime(){
+
+	public String getEndTime() {
 		return (String) data.getProperty(PROP_END_TIME);
 	}
-	
-	public long getOrder(){
+
+	public long getOrder() {
 		return (Long) data.getProperty(PROP_ORDER);
 	}
-	
-	public String getLocation(){
+
+	public String getLocation() {
 		return (String) data.getProperty(PROP_LOCATION);
 	}
-	
+
 	public boolean hasBestSpeakerAward() {
-		if((Boolean) data.getProperty(PROP_NO_BEST_SPEAKER))
-			return false;
-		return true;
+		return !data.hasProperty(PROP_NO_BEST_SPEAKER);
 	}
-	
+
 	public void save() {
 		datastore.put(data);
 	}

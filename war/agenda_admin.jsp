@@ -48,6 +48,12 @@
 				<textarea name="text" cols="40" rows="10"><%=t.getText()%></textarea>
 				</td>
 			</tr>
+			<tr>
+				<td>Long Text</td>
+				<td>
+				<textarea name="longtext" cols="40" rows="10"><%=t.getText()%></textarea>
+				</td>
+			</tr>
 			
 			<tr>
 				<td>Start</td>
@@ -98,6 +104,11 @@
 				<td>Text</td>
 				<td><textarea name="text" cols="40" rows="10"></textarea></td>
 			</tr>
+			<tr>
+				<td>Long Text</td>
+				<td><textarea name="longtext" cols="40" rows="10"></textarea></td>
+			</tr>
+			
 			<tr>
 				<td>Start</td>
 				<td><input name="start" type="text" /></td>
