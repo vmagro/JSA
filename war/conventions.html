@@ -51,6 +51,8 @@
         <div style="hidden" id="dividerStorage"></div>
         
         <script type="text/javascript">
+        	var BASE = "http://localhost:8888/api/";
+        
         	function showData(data){
         		$("#conventions").empty();
         		//$("#agenda").empty();
@@ -121,6 +123,8 @@
                         page.find("#topicTime").html(item["time"]);
                         page.find("#topicLocation").html(item["loc"]);
                         page.find("#topicText").html(item["text"]);
+                        page.find("#topicLongText").html(item["longtext"]);
+                        console.log("longtext: "+item["longtext"]);
 
                         $.getJSON(BASE + "agenda?id=" + id, function (data) {
                             var comments = page.find("#comments")
@@ -257,6 +261,7 @@
 			<h3 id="topicTime"></h3>
 			<h4 id="topicLocation"></h4>
 			<p id="topicText"></p>
+			<p id="topicLongText"></p>
 			<h3>Comments</h3>
 			<a href="#new-comment" data-role="button" data-rel="dialog" id="leavecomment">Leave
 				a comment</a> <br>

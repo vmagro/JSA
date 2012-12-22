@@ -51,7 +51,7 @@
 			<tr>
 				<td>Long Text</td>
 				<td>
-				<textarea name="longtext" cols="40" rows="10"><%=t.getText()%></textarea>
+				<textarea name="longtext" cols="40" rows="10"><%=t.getLongText()%></textarea>
 				</td>
 			</tr>
 			

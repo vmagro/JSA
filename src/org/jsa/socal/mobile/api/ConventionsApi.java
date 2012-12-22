@@ -2,6 +2,7 @@ package org.jsa.socal.mobile.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class ConventionsApi extends HttpServlet {
 		String idString = req.getParameter("id");
 		if(idString == null){ //output all the conventions
 			ArrayList<Convention> conventions = Convention.getConventions();
+			HashMap<String, String> previousBlocks = new HashMap<String, String>();
 			JSONArray arr = new JSONArray();
 			for(Convention c : conventions){
 				JSONObject json = new JSONObject();
@@ -37,11 +39,18 @@ public class ConventionsApi extends HttpServlet {
 						JSONObject agendaJson = new JSONObject();
 						agendaJson.put("block", t.getBlock());
 						agendaJson.put("text", t.getText());
+						agendaJson.put("longtext", t.getLongText());
 						agendaJson.put("loc", t.getLocation());
-						agendaJson.put("time", t.getStartTime()+"-"+t.getEndTime());
+						if(previousBlocks.keySet().contains(t.getBlock()) && t.getStartTime().equals("")){
+							agendaJson.put("time", previousBlocks.get(t.getBlock()));
+						}
+						else
+							agendaJson.put("time", t.getStartTime()+"-"+t.getEndTime());
 						agendaJson.put("id", t.getId());
 						agendaJson.put("bstspkr", t.hasBestSpeakerAward());
 						agendaArr.put(agendaJson);
+						if(!previousBlocks.keySet().contains(t.getBlock()))
+							previousBlocks.put(t.getBlock(), t.getStartTime()+"-"+t.getEndTime());
 					}
 					
 					json.put("agenda", agendaArr);
