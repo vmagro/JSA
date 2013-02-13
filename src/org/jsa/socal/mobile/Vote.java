@@ -42,6 +42,12 @@ public class Vote {
 		q.setFilter(CompositeFilterOperator.and(new FilterPredicate(PROP_BLOCK, FilterOperator.EQUAL, block), new FilterPredicate(PROP_USER, FilterOperator.EQUAL, user)));
 		return datastore.prepare(q).asList(FetchOptions.Builder.withDefaults()).size() != 0;
 	}
+	
+	public static void deleteVote(String user, String block){
+		Query q = new Query(KIND);
+		q.setFilter(CompositeFilterOperator.and(new FilterPredicate(PROP_BLOCK, FilterOperator.EQUAL, block), new FilterPredicate(PROP_USER, FilterOperator.EQUAL, user)));
+		datastore.delete(datastore.prepare(q).asSingleEntity().getKey());
+	}
 
 	public static ArrayList<Vote> getVotes(String block) {
 		ArrayList<Vote> votes = new ArrayList<Vote>();

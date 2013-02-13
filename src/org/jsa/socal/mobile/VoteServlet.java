@@ -88,9 +88,6 @@ public class VoteServlet extends HttpServlet {
 		int topicId = Integer.parseInt(req.getParameter("id"));
 		String block = AgendaTopic.getAgendaTopic(topicId).getBlock();
 
-		System.out.println(user + " voted for " + speaker + " in block "
-				+ AgendaTopic.getAgendaTopic(topicId).getBlock());
-
 		Vote v = new Vote();
 		v.setUser(user);
 		v.setSpeaker(speaker);
