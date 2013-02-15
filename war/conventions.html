@@ -36,6 +36,7 @@
                 });
 
                 // Additional initialization code here
+                authFacebook();
             };
 
             // Load the SDK Asynchronously
@@ -46,6 +47,25 @@
                 js.src = "//connect.facebook.net/en_US/all.js";
                 ref.parentNode.insertBefore(js, ref);
             }(document));
+            
+            function authFacebook(){
+            //do facebook stuff
+            	var name = "";
+                FB.login(function (response) {
+                	if (response.authResponse) {
+                    	FB.api('/me', function (response) {
+                        	name = response.name;
+                        	window.name = name;
+                            $(".name").text(response.name);
+                            $("#mustlogin").hide();
+                            $("#mustlogin").remove();
+                            $("#commentform").show();
+                        });
+                        } else {
+                    }
+                });
+           	}
+           	
         </script>
         
         <div style="hidden" id="dividerStorage"></div>
@@ -137,20 +157,7 @@
                             }
                             comments.listview("refresh");
 
-                            //do facebook stuff
-                            var name = "";
-                            FB.login(function (response) {
-                                if (response.authResponse) {
-                                    FB.api('/me', function (response) {
-                                        name = response.name;
-                                        $("#name").text(response.name);
-                                        $("#mustlogin").hide();
-                                        $("#mustlogin").remove();
-                                        $("#commentform").show();
-                                    });
-                                } else {
-                                }
-                            });
+                            
 
                             $("#submitcomment").unbind("click");
                             $("#submitcomment").click(function () {
@@ -164,7 +171,22 @@
                                     }
                                 );
                                 return false;
-                            })
+                            });
+                            $("#submitvote").unbind("click");
+                            
+                            $("#submitvote").click(function () {
+                                var fspeaker = $("textarea[name='speaker']").val();
+                                var fuser = name;
+                                console.log(fuser + " voted");
+                                $.post(
+                                    "/api/vote",
+                                    { id: id, speaker: fspeaker, user: fuser },
+                                    function (responseText) {
+                                        $('.ui-dialog').dialog('close');
+                                    }
+                                );
+                                return false;
+                            });
 
                         }).error(function(){
                         	$("#leavecomment").hide();
@@ -262,6 +284,7 @@
 			<h4 id="topicLocation"></h4>
 			<p id="topicText"></p>
 			<p id="topicLongText"></p>
+			<a href="#vote" data-role="button" data-rel="dialog" id="votebutton">Vote for best speaker</a>
 			<h3>Comments</h3>
 			<a href="#new-comment" data-role="button" data-rel="dialog" id="leavecomment">Leave
 				a comment</a> <br>
@@ -279,11 +302,24 @@
 
 			<p id="mustlogin">You must login with Facebook to submit a
 				comment</p>
+		
+			<script type="text/javascript">
+				FB.getLoginStatus(function(response){
+					if (response.status == 'connected'){
+						$("#mustlogin").hide();
+                        $("#mustlogin").remove();
+                        $("#commentform").show();
+                    }
+                    else{
+                    	authFacebook();
+                    }
+                });
+           	</script>
 
 
 			<div id="commentform" style="display: none">
 				<p>
-					Your name (<span id="name"></span>) will be recorded along with
+					Your name (<span class="name"></span>) will be recorded along with
 					your comment. Please keep your comments appropriate. Thank you for
 					your participation.
 				</p>
@@ -295,6 +331,49 @@
 			</div>
 		</div>
 	</div>
+	<!-- end comment form -->
+	
+	
+	<!-- Vote form -->
+	<div data-role="page" data-url="vote">
+		<div data-role="header">
+			<h1>Votet</h1>
+		</div>
+
+		<div data-role="content">
+
+			<p id="mustlogin">You must login with Facebook to vote for best speaker</p>
+		
+			<script type="text/javascript">
+				FB.getLoginStatus(function(response){
+					if (response.status == 'connected'){
+						$("#mustlogin").hide();
+                        $("#mustlogin").remove();
+                        $("#voteform").show();
+                    }
+                    else{
+                    	authFacebook();
+                   	}
+                });
+           	</script>
+
+
+			<div id="voteform" style="display: none">
+				<p>
+					Your name (<span class="name"></span>) will be recorded along with your vote. 
+					Please enter the name of the speaker whom you would like to vote for as best speaker. 
+					You may only vote 1 time per block, if you attempt to vote multiple times in one block, the program will only accept your last vote. 
+					Thank you for your participation.
+				</p>
+
+				<div>
+					<textarea name="speaker" cols="40" rows="1"></textarea>
+					<div id="submitvote" data-role="button">Submit</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end vote form -->
 
 </body>
 

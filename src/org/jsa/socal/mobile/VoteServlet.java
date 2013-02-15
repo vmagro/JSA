@@ -44,7 +44,7 @@ public class VoteServlet extends HttpServlet {
 					speakerFailsafe += " "
 							+ speaker.substring(speaker.indexOf(" "),
 									speaker.indexOf(" ") + 2);
-				
+
 				if (guessed.containsKey(speakerFailsafe))
 					guessed.put(speakerFailsafe,
 							guessed.get(speakerFailsafe) + 1); // increment
@@ -53,16 +53,17 @@ public class VoteServlet extends HttpServlet {
 																// have a vote
 																// for this
 																// person
-				else{
+				else {
 					guessed.put(speakerFailsafe, 1);
-					
-					//store the speaker's real name with the failsafe as a key so we can display it nicer to the user tallying the votes
+
+					// store the speaker's real name with the failsafe as a key
+					// so we can display it nicer to the user tallying the votes
 					speakerMap.put(speakerFailsafe, speaker);
 				}
 			}
 			for (String speaker : guessed.keySet())
-				out.println("<li>" + speakerMap.get(speaker) + " : " + guessed.get(speaker)
-						+ "</li>");
+				out.println("<li>" + speakerMap.get(speaker) + " : "
+						+ guessed.get(speaker) + "</li>");
 			out.println("</ul>");
 			out.println("</li>");
 		}
@@ -88,15 +89,19 @@ public class VoteServlet extends HttpServlet {
 		int topicId = Integer.parseInt(req.getParameter("id"));
 		String block = AgendaTopic.getAgendaTopic(topicId).getBlock();
 
+		System.out.println(user + " voted for " + speaker + " in " + block);
+
 		Vote v = new Vote();
 		v.setUser(user);
 		v.setSpeaker(speaker);
 		v.setBlock(block);
 		v.setTopicId(topicId);
 
-		if (!Vote.doesVoteExist(user, block)) {
-			v.saveAsync();
+		if (Vote.doesVoteExist(user, block)) {
+			System.out.println("Vote already exists, deleting");
+			Vote.deleteVote(user, block);
 		}
+		v.saveAsync();
 	}
 
 }
