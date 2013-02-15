@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>SoCal JSA Admin</title>
-<link type="text/css" href="/css/smoothness/jquery-ui-1.8.23.custom.css"
+<link type="text/css" href="/css/smoothness/jquery-ui-1.9.2.custom.css"
 	rel="Stylesheet" />
 <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.9.2.custom.min.js"></script>
