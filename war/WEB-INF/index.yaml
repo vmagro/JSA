@@ -15,3 +15,7 @@ indexes:
     direction: asc
   - name: block
     direction: asc
+  - name: topicId
+    direction: asc
+  - name: speaker
+    direction: asc
