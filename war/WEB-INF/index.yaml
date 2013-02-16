@@ -7,3 +7,11 @@ indexes:
     direction: asc
   - name: d
     direction: desc
+    
+- kind: Vote
+  ancestor: no
+  properties:
+  - name: user
+    direction: asc
+  - name: block
+    direction: asc
