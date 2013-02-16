@@ -11,11 +11,15 @@ indexes:
 - kind: Vote
   ancestor: no
   properties:
-  - name: user
-    direction: asc
-  - name: block
-    direction: asc
   - name: topicId
     direction: asc
   - name: speaker
+    direction: desc
+    
+- kind: Vote
+  ancestor: no
+  properties:
+  - name: user
+    direction: asc
+  - name: block
     direction: asc
