@@ -26,6 +26,7 @@
 
 	<div data-role="page" id="conventionsPage">
 
+<!--
 		<script type="text/javascript">
             window.fbAsyncInit = function () {
                 FB.init({
@@ -66,13 +67,14 @@
                 });
            	}
            	
-        </script>
+        </script> -->
         
         <div style="hidden" id="dividerStorage"></div>
         
         <script type="text/javascript">
         	var BASE = "http://socal-jsa.appspot.com/api/";
-        
+        	//var BASE = "http://localhost:8888/api/";
+        	
         	function showData(data){
         		$("#conventions").empty();
         		//$("#agenda").empty();
@@ -176,7 +178,7 @@
                             
                             $("#submitvote").click(function () {
                                 var fspeaker = $("textarea[name='speaker']").val();
-                                var fuser = name;
+                                var fuser = $("textarea[name='user']").val();
                                 console.log(fuser + " voted");
                                 $.post(
                                     "/api/vote",
@@ -208,7 +210,8 @@
 		$(document).bind("pageinit", function(){
 
             var BASE = "http://socal-jsa.appspot.com/api/";
-
+			//var BASE = "http://localhost:8888/api/";
+			
             var conventions;
             
             if(localStorage["conventions"]){
@@ -337,13 +340,11 @@
 	<!-- Vote form -->
 	<div data-role="page" data-url="vote">
 		<div data-role="header">
-			<h1>Votet</h1>
+			<h1>Vote</h1>
 		</div>
 
 		<div data-role="content">
-
-			<p id="mustlogin">You must login with Facebook to vote for best speaker</p>
-		
+<!--
 			<script type="text/javascript">
 				FB.getLoginStatus(function(response){
 					if (response.status == 'connected'){
@@ -355,19 +356,20 @@
                     	authFacebook();
                    	}
                 });
-           	</script>
+           	</script> -->
 
 
-			<div id="voteform" style="display: none">
+			<div id="voteform">
 				<p>
-					Your name (<span class="name"></span>) will be recorded along with your vote. 
+					Your name will be recorded along with your vote. 
 					Please enter the name of the speaker whom you would like to vote for as best speaker. 
 					You may only vote 1 time per block, if you attempt to vote multiple times in one block, the program will only accept your last vote. 
 					Thank you for your participation.
 				</p>
 
 				<div>
-					<textarea name="speaker" cols="40" rows="1"></textarea>
+					<textarea name="speaker" cols="40" rows="1" placeholder="Your name"></textarea>
+					<textarea name="user" cols="40" rows="1" placeholder="Best speaker"></textarea>
 					<div id="submitvote" data-role="button">Submit</div>
 				</div>
 			</div>

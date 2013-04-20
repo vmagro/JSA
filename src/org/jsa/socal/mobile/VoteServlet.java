@@ -35,15 +35,23 @@ public class VoteServlet extends HttpServlet {
 				String speaker = v.getSpeaker();
 				// get the first 2 letters of the speakers first name and of the
 				// speaker's last name to try to account for spelling errors
-				String speakerFailsafe = speaker.substring(0, 2);
+				String speakerFailsafe = speaker;
+				if(speaker.length() > 2)
+					speakerFailsafe = speaker.substring(0, 2);
 				if (speaker.contains(" "))// take into account that user might
 											// only enter a first name and
 											// having no spaces will crash the
 											// code if we don't take that into
 											// consideration
-					speakerFailsafe += " "
-							+ speaker.substring(speaker.indexOf(" "),
-									speaker.indexOf(" ") + 2);
+					if (speaker.contains(" ")) {
+						if (speaker.substring(speaker.indexOf(" "))
+								.length() > 2)
+							speakerFailsafe += " "
+									+ speaker.substring(speaker.indexOf(" "),
+											speaker.indexOf(" ") + 2);
+						else
+							speakerFailsafe += " " + speaker.substring(speaker.indexOf(" "));
+					}
 
 				if (guessed.containsKey(speakerFailsafe))
 					guessed.put(speakerFailsafe,
@@ -97,10 +105,6 @@ public class VoteServlet extends HttpServlet {
 		v.setBlock(block);
 		v.setTopicId(topicId);
 
-		if (Vote.doesVoteExist(user, block)) {
-			System.out.println("Vote already exists, deleting");
-			Vote.deleteVote(user, block);
-		}
 		v.saveAsync();
 	}
 
